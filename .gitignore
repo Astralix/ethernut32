@@ -1,7 +1,9 @@
 build
 *.o
+*.d
 *~
 .svn
+
 # /
 /config.log
 /config.status
