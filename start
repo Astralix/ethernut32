@@ -1,0 +1,7 @@
+#!/bin/bash
+#
+# Setup path and exports for cortex development
+#
+echo "Setting up cortex development..."
+export PATH="/opt/gcc-arm-none-eabi-4_7-2013q3/bin:$PATH"
+export TARG="arm-none-eabi-"

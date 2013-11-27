@@ -1,0 +1,12 @@
+# Do not edit! Automatically generated on Thu Nov 28 00:17:48 2013
+
+top_srcdir = ../../nut
+top_blddir = ../../nutbld-l152-gcc
+top_appdir = ../../nutapp-l152-gcc
+
+LIBDIR = ../../nutbld-l152-gcc/lib
+INCFIRST=$(INCPRE)$(top_blddir)/include 
+include $(top_appdir)/NutConf.mk
+include $(top_srcdir)/app/Makedefs.cm3-gcc
+include $(top_srcdir)/app/Makeburn.stm32-oocd
+
