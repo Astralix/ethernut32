@@ -4,6 +4,13 @@ build
 *~
 .svn
 
+*.lst
+*.bin
+*.elf
+*.hex
+*.map
+
+nutbld*
 # /
 /config.log
 /config.status
