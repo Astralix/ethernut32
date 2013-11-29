@@ -73,20 +73,16 @@
 #
 #
 
-PROJ = dscstm
+PROJ = uart
 
 include ../Makedefs
 
-SRCS =  main.c dsc11_ifc.c
+SRCS =  $(PROJ).c
 OBJS =  $(SRCS:.c=.o)
 LIBS =  $(LIBDIR)/nutinit.o -lnutcrt -lnutarch -lnutdev -lnutos -lnutdev -lnutarch
 TARG =  $(PROJ).hex
-CFLAGS += -Iinclude
 
 all: $(OBJS) $(TARG) $(ITARG) $(DTARG)
-
-program: all
-	openocd -f board/stm32ldiscovery.cfg -c "program $(TARG) verify reset"
 
 include ../Makerules
 
