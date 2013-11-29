@@ -820,9 +820,9 @@ int NutTwiSetSpeed( NUTTWIBUS *bus, uint32_t speed)
 {
     int rc = 0;
 
-    register uint16_t ccr;
+    uint32_t ccr;
     I2C_TypeDef* I2Cx = (I2C_TypeDef*)bus->bus_base;
-    uint32_t apbclk = NutClockGet(NUT_HWCLK_PCLK1);
+    uint32_t apbclk = NutClockGet(NUT_HWCLK_APB1);
     uint16_t frqrange = (uint16_t)(apbclk/1000000);
     uint16_t cr1 = I2Cx->CR1;
 
@@ -831,39 +831,44 @@ int NutTwiSetSpeed( NUTTWIBUS *bus, uint32_t speed)
 
     /* sanity check */
     if( speed > 400000 ) {
-        speed = 400000;
         rc = -1;
     }
 
     /* Configure speed in fast mode */
     if( speed > 100000 ) {
         /* calculate CCR value */
-        ccr = (uint16_t)(apbclk/(speed*25));
+    	ccr = apbclk/(speed*25);
+    	/* Keep hard limits */
+    	ccr &= I2C_CCR_CCR;
         if( ccr == 0 ) {
             /* keep minimum allowed value */
-            ccr = 0x0001;
+            ccr = 1;
         }
         /* Set DUTY bit and set F/S bit for fast mode */
         ccr |= (I2C_CCR_DUTY|I2C_CCR_FS);
+
         /* Set Maximum Rise Time for fast mode */
-        I2Cx->TRISE = (uint16_t)(((frqrange*300)/1000)+1);
+        I2Cx->TRISE = (uint16_t)(((frqrange*3)/10)+1);
     }
     else {
         /* Standard mode speed calculate */
-        ccr = (uint16_t)(apbclk/(speed<<1));
-        /* Test if CCR value is under 0x4 */
+        ccr = apbclk/(speed*2);
+        ccr &= I2C_CCR_CCR;
+        /* Test if CCR value is under 4 */
         if( ccr < 4 ) {
             /* Set minimum allowed value */
             ccr = 4;
         }
-        else if ( ccr > I2C_CCR_CCR ) {
-            ccr = I2C_CCR_CCR;
-        }
         /* Set Maximum Rise Time for standard mode */
         I2Cx->TRISE = frqrange+1;
     }
+
     /* Write CCR register */
-    I2Cx->CCR = ccr;
+    I2Cx->CCR = (uint16_t)ccr;
+
+    /* Set FREQ in CR2 according APB1 speed */
+    I2Cx->CR2 &= ~I2C_CR2_FREQ;
+    I2Cx->CR2 |= frqrange;
 
     /* Restore the CR1 register */
     I2Cx->CR1 = cr1;
@@ -1038,9 +1043,6 @@ int NutRegisterTwiBus( NUTTWIBUS *bus, uint8_t sla )
     tmpreg |= (I2C_CR2_ITBUFEN|I2C_CR2_ITEVTEN|I2C_CR2_ITERREN);
     I2Cx->CR2 = tmpreg;
 #endif
-    I2Cx->CR2 = 0x0000;
-    I2Cx->CR2 &= I2C_CR2_FREQ;
-    I2Cx->CR2 |= (NutClockGet(NUT_HWCLK_PCLK1)/1000000);
     I2Cx->CR1 = I2C_CR1_PE;
 
     // TODO: Slave Address Setup

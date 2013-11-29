@@ -304,21 +304,22 @@ uint32_t nut_delay_loops;
  * \brief System timer interrupt handler.
  */
 #ifndef __NUT_EMULATION__
-
+#include <dev/gpio.h>
 #if defined(USE_TIMER)
 SIGNAL( SIG_TIMER )
 #else
 void NutTimerIntr(void *arg)
 #endif
 {
+    GpioPinSetLow( NUTGPIO_PORTB, 4);
     nut_ticks++;
-
 #ifndef NUT_USE_OLD_TIME_API
     system_time.tv_usec += systick_us;
     if (system_time.tv_usec > 1000000) {
         system_time.tv_sec ++;
         system_time.tv_usec -= 1000000;
     }
+    GpioPinSetHigh( NUTGPIO_PORTB, 4);
 #endif
 
     // nut_tick_dist[TCNT0]++;
