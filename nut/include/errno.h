@@ -35,17 +35,6 @@
  */
 
 #ifndef _ERRNO_H_
-
-#ifdef __NUT_EMULATION__
-//  on an emulation platform, we need to use the native errno as it might
-//  re-define errno (e.g. on red hat enterprise linux 3)
-#include <errno_orig.h>
-
-// define _ERRNO_H_ as the native system might use a different style
-#define _ERRNO_H_
-
-#else
-
 #define _ERRNO_H_
 
 extern int errno;           /* global error number */
@@ -129,8 +118,6 @@ extern int errno;           /* global error number */
 #define EHOSTDOWN   64      /* Host is down */
 #define EHOSTUNREACH    65      /* No route to host */
 #define ENOTEMPTY   66      /* Directory not empty */
-
-#endif
 
 #endif
 

@@ -92,11 +92,6 @@ extern int _close(int fd);
 extern int _open(const char *name, int mode);
 extern int _read(int fd, void *buffer, size_t count);
 extern int _write(int fd, const void *buffer, size_t count);
-#ifdef __HARVARD_ARCH__
-extern int _write_P(int fd, PGM_P buffer, size_t count);
-#else
-#define _write_P(fd, buffer, count) _write(fd, buffer, count)
-#endif
 extern int _seek(int fd, long offset, int origin);
 extern long _tell(int fd);
 

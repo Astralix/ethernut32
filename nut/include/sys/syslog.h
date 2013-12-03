@@ -62,22 +62,6 @@
  */
 
 /*
- * $Log$
- * Revision 1.6  2008/08/11 07:00:28  haraldkipp
- * BSD types replaced by stdint types (feature request #1282721).
- *
- * Revision 1.5  2004/11/24 16:41:18  haraldkipp
- * Wrong prototypes for _P routines fixed
- *
- * Revision 1.4  2004/10/03 18:41:43  haraldkipp
- * RAM saving calls added
- *
- * Revision 1.3  2004/09/19 11:18:44  haraldkipp
- * Syslog client added
- *
- */
-
-/*
  * priorities/facilities are encoded into a single 32-bit quantity, where the
  * bottom 3 bits are the priority (0-7) and the top 28 bits are the facility
  * (0-big number).  Both the priorities and the facilities map roughly
@@ -174,16 +158,5 @@ extern int setlogmask(int);
 extern uint32_t setlogserver(uint32_t ip, uint16_t port);
 extern void syslog(int, const char *, ...);
 extern void vsyslog(int, const char *, va_list);
-#ifdef __HARVARD_ARCH__
-#ifdef SYSLOG_INTERNAL
-extern size_t syslog_header(int pri);
-extern void syslog_flush(size_t len);
-#endif
-extern void syslog_P(int pri, PGM_P fmt, ...);
-extern void vsyslog_P(int pri, PGM_P fmt, va_list ap);
-#else
-#define syslog_P    syslog
-#define vsyslog_P   vsyslog
-#endif
 
 #endif

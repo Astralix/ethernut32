@@ -36,22 +36,6 @@
  * 2004.05.06 Matthias Ringwald <matthias.ringwald@inf.ethz.ch>
  *
  */
-/*
- * $Log$
- * Revision 1.5  2007/08/29 07:43:54  haraldkipp
- * Documentation updated and corrected.
- *
- * Revision 1.4  2005/08/02 17:46:49  haraldkipp
- * Major API documentation update.
- *
- * Revision 1.3  2004/06/02 16:43:36  olereinhardt
- * fixed bug (integer overflow) in semaphore implementation
- *
- * Revision 1.2  2004/05/18 18:38:14  drsung
- * Added $Log keyword for CVS and avoid multiple inclusion of header file.
- *
- */
-
 #ifndef _SYS_SEMAPHORE_H
 #define _SYS_SEMAPHORE_H
 

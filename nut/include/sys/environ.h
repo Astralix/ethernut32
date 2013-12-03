@@ -60,11 +60,6 @@ extern NUTENVIRONMENT *findenv(const char *name);
 extern char *nextenv(const char *name);
 
 extern char *getenv(const char *name);
-#if defined (__AVR__)
-extern int setenv(const char *name, const char *value, int force);
-extern void unsetenv(const char *name);
-extern int putenv(const char *string);
-#endif
 
 #if defined (__CROSSWORKS_ARM)
 

@@ -33,37 +33,6 @@
  * For additional information see http://www.ethernut.de/
  *
  */
-/*
- * $Log$
- * Revision 1.9  2009/03/05 22:51:14  freckle
- * revert change and define time_t on __linux__
- *
- * Revision 1.8  2009/03/05 22:16:57  freckle
- * use __NUT_EMULATION instead of __APPLE__, __linux__, or __CYGWIN__
- *
- * Revision 1.7  2008/08/11 06:59:58  haraldkipp
- * BSD types replaced by stdint types (feature request #1282721).
- *
- * Revision 1.6  2005/01/19 17:03:35  freckle
- * forget to check in other cygwin fixes
- *
- * Revision 1.5  2004/04/07 12:13:57  haraldkipp
- * Matthias Ringwald's *nix emulation added
- *
- * Revision 1.4  2004/03/16 16:48:27  haraldkipp
- * Added Jan Dubiec's H8/300 port.
- *
- * Revision 1.3  2003/12/19 22:24:25  drsung
- * Dox written.
- *
- * Revision 1.2  2003/11/26 11:15:34  haraldkipp
- * Portability issues
- *
- * Revision 1.1  2003/11/24 18:11:03  drsung
- * first release
- *
- *
- */
 
 /*!
  * \file time.h

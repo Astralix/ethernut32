@@ -61,77 +61,6 @@
  * SUCH DAMAGE.
  */
 
-/*
- * $Log$
- * Revision 1.14  2009/02/22 12:37:27  olereinhardt
- * Added NutUdpError and NutUdpSetSocketError to set and retrieve socket
- * errors. As udp sockets aren't connection oriented those errors will be
- * anounced asynchronously on the next NutUdpSend or NutUdpReceive
- *
- * Include "include/errno.h" instead of "include/net/errno.h"
- *
- * Revision 1.13  2008/08/20 06:56:59  haraldkipp
- * Implemented IP demultiplexer.
- *
- * Revision 1.12  2008/08/11 07:00:27  haraldkipp
- * BSD types replaced by stdint types (feature request #1282721).
- *
- * Revision 1.11  2008/04/18 13:32:00  haraldkipp
- * Changed size parameter from u_short to int, which is easier to handle
- * for 32-bit targets. You need to recompile your ARM code. No impact on
- * AVR expected
- * I changed u_int to int at some places to avoid some warnings during
- * compilation of Nut/Net.
- * libs.
- *
- * Revision 1.10  2007/08/29 07:43:54  haraldkipp
- * Documentation updated and corrected.
- *
- * Revision 1.9  2006/03/21 21:22:19  drsung
- * Enhancement made to TCP state machine. Now TCP options
- * are read from peer and at least the maximum segment size is stored.
- *
- * Revision 1.8  2005/08/02 17:46:49  haraldkipp
- * Major API documentation update.
- *
- * Revision 1.7  2005/06/05 16:48:25  haraldkipp
- * Additional parameter enables NutUdpInput() to avoid responding to UDP
- * broadcasts with ICMP unreachable messages. Fixes bug #1215192.
- *
- * Revision 1.6  2004/07/30 19:54:46  drsung
- * Some code of TCP stack redesigned. Round trip time calculation is now
- * supported. Fixed several bugs in TCP state machine. Now TCP connections
- * should be more reliable under heavy traffic or poor physical connections.
- *
- * Revision 1.5  2004/03/16 16:48:44  haraldkipp
- * Added Jan Dubiec's H8/300 port.
- *
- * Revision 1.4  2004/01/14 19:33:13  drsung
- * New TCP output buffer handling
- *
- * Revision 1.3  2003/11/24 21:00:21  drsung
- * Packet queue added for UDP sockets.
- *
- * Revision 1.2  2003/07/13 19:32:12  haraldkipp
- * Faster TCP transfers by changing receive buffer
- *
- * Revision 1.1.1.1  2003/05/09 14:41:22  haraldkipp
- * Initial using 3.2.1
- *
- * Revision 1.10  2003/02/04 18:00:53  harald
- * Version 3 released
- *
- * Revision 1.9  2002/09/03 17:50:18  harald
- * Configurable receive buffer size
- *
- * Revision 1.8  2002/08/16 17:54:19  harald
- * Count out of sequence drops
- *
- * Revision 1.7  2002/06/26 17:29:29  harald
- * First pre-release with 2.4 stack
- *
- */
-
 #include <compiler.h>
 #include <stdint.h>
 #include <sys/types.h>
@@ -209,9 +138,6 @@ struct tcp_socket {
     uint8_t so_devtype;     /*!< \brief Device type, always IFTYP_TCPSOCK. */
     int (*so_devread) (TCPSOCKET *, void *, int); /*!< \brief Read from device. */
     int (*so_devwrite) (TCPSOCKET *, const void *, int); /*!< \brief Write to device. */
-#ifdef __HARVARD_ARCH__
-    int (*so_devwrite_P) (TCPSOCKET *, PGM_P, int); /*!< \brief Write to device. */
-#endif
     int (*so_devioctl) (TCPSOCKET *, int, void *); /*!< \brief Driver control function. */
 
     uint16_t so_devocnt;     /*!< \brief Number of data bytes in output buffer. */

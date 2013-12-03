@@ -69,7 +69,7 @@ int main(void);
 
 // == Define new and delete if needed =================================
 
-#if defined(__GNUC__) && ((defined(__AVR) || defined(__arm__)))
+#if defined(__GNUC__) && defined(__arm__)
 //inline void * operator new(unsigned int s) {
 inline void * operator new(size_t s) {
     return malloc(s);

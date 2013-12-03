@@ -36,8 +36,6 @@
 
 #if defined(__GNUC__)
 #include <toolchain/gcc.h>
-#elif defined(__IMAGECRAFT__)
-#include <toolchain/icc.h>
 #else
 #error Unknow toolchain.
 #endif

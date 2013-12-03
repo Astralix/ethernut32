@@ -120,15 +120,7 @@
  * First pre-release with 2.4 stack
  *
  */
-
-/* use native version on unix emulation */
-#ifdef __NUT_EMULATION__
-#include <netdb_orig.h>
-/* assure _NETDB_H_ is set */
-#undef  _NETDB_H_
-#define _NETDB_H_
-#else  /* unix emulation */
-
+#ifndef _NETDB_H_
 #define _NETDB_H_
 #include <sys/types.h>
 #include <stdint.h>

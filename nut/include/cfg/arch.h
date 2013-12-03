@@ -34,37 +34,6 @@
  *
  */
 
-/*!
- * $Log$
- * Revision 1.8  2008/10/23 08:55:46  haraldkipp
- * Now determines MCU family.
- * Added Ethernut 5 settings.
- *
- * Revision 1.7  2008/08/11 11:51:20  thiagocorrea
- * Preliminary Atmega2560 compile options, but not yet supported.
- * It builds, but doesn't seam to run properly at this time.
- *
- * Revision 1.6  2008/02/15 17:00:24  haraldkipp
- * Spport for AT91SAM7SE512 added.
- *
- * Revision 1.5  2007/10/04 20:31:00  olereinhardt
- * Support for SAM7S256 added
- *
- * Revision 1.4  2007/07/17 18:07:44  haraldkipp
- * Building in the source tree should work again for AT91 devices.
- *
- * Revision 1.3  2007/04/12 09:21:10  haraldkipp
- * Added ATmega2561 definitions for Ethernut 1 and 2.
- *
- * Revision 1.2  2006/05/25 09:22:47  haraldkipp
- * The PLATFORM definition broke source tree building.
- * Fixed for Ethernut Boards.
- *
- * Revision 1.1  2004/09/19 12:31:52  haraldkipp
- * Configuration placeholders added
- *
- */
-
 /*
  * This file is reserved to specify architecture dependant
  * configuration and is currently used as a placeholder
@@ -74,63 +43,7 @@
 /*
 ** Determine board defaults.
 **/
-#if defined(ETHERNUT1)
-
-#ifndef PLATFORM
-#define PLATFORM ETHERNUT1
-#endif
-
-#ifndef AVR_GCC
-#define AVR_GCC
-#endif
-
-#if !defined(MCU_ATMEGA128) && !defined(MCU_ATMEGA2560) && !defined(MCU_ATMEGA2561)
-#if defined(__AVR_ATmega2561__) || defined(ATMega2561)
-#define MCU_ATMEGA2561
-#elif defined(__AVR_ATmega2560__) || defined(ATMega2560)
-#define MCU_ATMEGA2560
-#elif defined(__AVR_ATmega128__) || defined(ATmega128)
-#define MCU_ATMEGA128
-#else 
-#define MCU_ATMEGA644
-#endif
-#endif
-
-#elif defined(ETHERNUT2)
-
-#ifndef PLATFORM
-#define PLATFORM ETHERNUT2
-#endif
-
-#ifndef AVR_GCC
-#define AVR_GCC
-#endif
-
-#if !defined(MCU_ATMEGA128) && !defined(MCU_ATMEGA2560) && !defined(MCU_ATMEGA2561)
-#if defined(__AVR_ATmega2561__) || defined(ATMega2561)
-#define MCU_ATMEGA2561
-#elif defined(__AVR_ATmega2561__) || defined(ATMega2561)
-#define MCU_ATMEGA2560
-#else
-#define MCU_ATMEGA128
-#endif
-#endif
-
-#elif defined(ETHERNUT3)
-
-#ifndef PLATFORM
-#define PLATFORM ETHERNUT3
-#endif
-
-#ifndef ARM_GCC
-#define ARM_GCC
-#endif
-
-#ifndef MCU_AT91R40008
-#define MCU_AT91R40008
-#endif
-
-#elif defined(ETHERNUT5)
+#if defined(ETHERNUT5)
 
 #ifndef PLATFORM
 #define PLATFORM ETHERNUT5

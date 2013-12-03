@@ -15,14 +15,8 @@
  * Typically 8 bit CPUs will use unsigned characters, 16 bit
  * CPUs will use unsigned shorts etc.
  */
-#if defined(__AVR__)
-typedef unsigned char ureg_t;
-#elif defined(__arm__)
+#if defined(__arm__)
 typedef unsigned short ureg_t;
-#elif defined(__H8300__) || defined(__H8300H__) || defined(__H8300S__)
-typedef unsigned short ureg_t;
-#elif defined(__m68k__)
-typedef uint_fast8_t ureg_t;
 #else
 typedef unsigned short ureg_t;
 #endif
@@ -32,14 +26,8 @@ typedef unsigned short ureg_t;
  *
  * Similar to ureg_t, but for signed values from -128 to +127.
  */
-#if defined(__AVR__)
-typedef unsigned char reg_t;
-#elif defined(__arm__)
+#if defined(__arm__)
 typedef unsigned short reg_t;
-#elif defined(__H8300__) || defined(__H8300H__) || defined(__H8300S__)
-typedef unsigned short reg_t;
-#elif defined(__m68k__)
-typedef int_fast8_t reg_t;
 #else
 typedef unsigned short reg_t;
 #endif
@@ -48,17 +36,9 @@ typedef unsigned short reg_t;
 /*!
  * \brief Unsigned pointer value type.
  *
- * The size of this type is at least the size of a memory pointer.
- * For CPUs with 16 address bits this will be an unsigned short.
- */
-#if defined(__AVR__)
-typedef unsigned short uptr_t;
-#else
-/*
  * For remaining MCUs GCC is assumed where __PTRDIFF_TYPE__ macro is defined
  */
 typedef unsigned __PTRDIFF_TYPE__ uptr_t;
-#endif
 
 /*! \brief Void pointer */
 typedef void *HANDLE;

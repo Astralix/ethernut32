@@ -49,37 +49,6 @@
  * in the Configurator until we fixed the string value
  * problem. You may use UserConf.mk instead.
  *
- * Revision 1.8  2008/10/05 16:47:04  haraldkipp
- * Removed attribute 'packed' from typedef.
- *
- * Revision 1.7  2008/08/11 07:00:25  haraldkipp
- * BSD types replaced by stdint types (feature request #1282721).
- *
- * Revision 1.6  2006/05/25 09:18:28  haraldkipp
- * API documentation updated and corrected.
- *
- * Revision 1.5  2006/03/16 15:25:34  haraldkipp
- * Changed human readable strings from u_char to char to stop GCC 4 from
- * nagging about signedness.
- *
- * Revision 1.4  2006/01/23 17:34:29  haraldkipp
- * Configuration structures must be packed.
- *
- * Revision 1.3  2005/07/26 16:02:57  haraldkipp
- * Avoid redefinition of CONFOS_EE_OFFSET.
- *
- * Revision 1.2  2004/03/03 17:52:25  drsung
- * New field 'hostname' added to structure confos.
- *
- * Revision 1.1.1.1  2003/05/09 14:41:19  haraldkipp
- * Initial using 3.2.1
- *
- * Revision 1.4  2003/02/04 18:00:52  harald
- * Version 3 released
- *
- * Revision 1.3  2002/06/26 17:29:28  harald
- * First pre-release with 2.4 stack
- *
  * \endverbatim
  */
 
@@ -123,7 +92,7 @@
  * Used on virgin systems without any valid configuration.
  */
 #ifndef CONFOS_VIRGIN_HOSTNAME
-#define CONFOS_VIRGIN_HOSTNAME  "ethernut"
+#define CONFOS_VIRGIN_HOSTNAME  "nut32"
 #endif
 
 /*!

@@ -36,26 +36,8 @@
  *
  */
 
-/*
- * $Log$
- * Revision 1.3  2008/08/11 07:00:25  haraldkipp
- * BSD types replaced by stdint types (feature request #1282721).
- *
- * Revision 1.2  2004/03/08 11:20:36  haraldkipp
- * Not all compilers like arrays of size zero.
- *
- * Revision 1.1  2004/02/04 18:05:04  drsung
- * First version of message queueing  implemented. Thanks to Ralph Mason, who provided this code.
- * Still contains some debug functions.
- *
- */
-
 #include <sys/timer.h>
 #include <stdint.h>
-
-#ifdef _PC
-#pragma warning (disable:4200)
-#endif
 
 typedef struct _NUTMSG NUTMSG;
 struct _NUTMSG {

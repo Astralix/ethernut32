@@ -42,37 +42,6 @@
 #ifndef _STDIO_VIRTUAL_H_
 #define _STDIO_VIRTUAL_H_
 
-#ifdef __NUT_EMULATION__
-//  on an emulation platform, we need to have both
-//              a) the native stdio headers and libs and
-#include "stdio_orig.h"
-//              b) the nut os header and implementation
-//              the nut os function calls and defines are renamed by the stdio_nut_wrapper.h
-
-// some defines in /usr/include/stdio.h we need to overload
-#ifndef NO_STDIO_NUT_WRAPPER
-
-#undef getc
-#undef putc
-#undef stdin
-#undef stdout
-#undef stderr
-#undef clearerr
-#undef feof
-#undef ferror
-#undef getchar
-#undef putchar
-
-#include <stdio_nut_wrapper.h>
-
-#endif                          /* NO_STDIO_NUT_WRAPPER */
-
-#endif                          /* __NUT_EMULATION__ */
-
-#ifndef _STDIO_H_
-#define _STDIO_H_
-#endif
-
 #ifdef NO_STDIO_NUT_WRAPPER
 // this is for unix device drivers, they want to see their native functions
 // and don't need nut stdio
@@ -182,24 +151,6 @@ extern int vsprintf(char *buffer, const char *fmt, va_list ap);
 extern int vsscanf(const char *string, const char *fmt, va_list ap);
 extern int rename(const char *old_name, const char *new_name);
 
-#ifdef __HARVARD_ARCH__
-/* Strings in program space need special handling for Harvard architectures. */
-extern int fprintf_P(FILE * stream, PGM_P fmt, ...) __attribute__((format(printf, 2, 3)));
-extern int fputs_P(PGM_P string, FILE * stream);
-extern int fscanf_P(FILE * stream, PGM_P fmt, ...) __attribute__((format(scanf, 2, 3)));
-extern size_t fwrite_P(PGM_P data, size_t size, size_t count, FILE * stream);
-extern int printf_P(PGM_P fmt, ...) __attribute__((format(printf, 1, 2)));
-extern int puts_P(PGM_P string);
-extern int scanf_P(PGM_P fmt, ...) __attribute__((format(scanf, 1, 2)));
-extern int sprintf_P(char *buffer, PGM_P fmt, ...) __attribute__((format(printf, 2, 3)));
-extern int sscanf_P(const char *string, const char *fmt, ...) __attribute__((format(scanf, 2, 3)));
-extern int vfprintf_P(FILE * stream, PGM_P fmt, va_list ap);
-extern int vfscanf_P(FILE * stream, PGM_P fmt, va_list ap);
-extern int vsprintf_P(char *buffer, PGM_P fmt, va_list ap);
-extern int vsscanf_P(const char *string, PGM_P fmt, va_list ap);
-
-#else /* __HARVARD_ARCH__ */
-
 #if !defined(NUT_STDIO_PREFIXED)
 /* Map to standard functions, if program and data space are equally accessable. */
 #define fputs_P(string, stream) fputs(string, stream)
@@ -227,8 +178,6 @@ extern int vsscanf_P(const char *string, PGM_P fmt, va_list ap);
 #endif /* __GNUC__ */
 
 #endif /* NUT_STDIO_PREFIXED */
-
-#endif /* __HARVARD_ARCH__ */
 
 #endif /* NO_STDIO_NUT_WRAPPER */
 

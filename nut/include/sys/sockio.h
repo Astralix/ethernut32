@@ -37,28 +37,19 @@
 /*!
  * \file sys/sockio.h
  * \brief Socket I/O controls.
- *
- * \verbatim
- *
- * $Log$
- * Revision 1.1  2007/05/02 11:36:36  haraldkipp
- * First check-in.
- *
- *
- * \endverbatim
  */
 
-#define SIOCADDMULTI    /*!< \brief Add multicast address. */
-#define SIOCDELMULTI    /*!< \brief Delete multicast address. */
+#define SIOCADDMULTI	/*!< \brief Add multicast address. */
+#define SIOCDELMULTI	/*!< \brief Delete multicast address. */
 
-#define SIOCGIFMTU      /*!< \brief Get interface MTU. */
-#define SIOCSIFMTU  /*!< \brief Set interface MTU. */
+#define SIOCGIFMTU		/*!< \brief Get interface MTU. */
+#define SIOCSIFMTU		/*!< \brief Set interface MTU. */
 
-#define SIOCADDRT   /*!< \brief Add route. */
-#define SIOCDELRT   /*!< \brief Delete route. */
+#define SIOCADDRT		/*!< \brief Add route. */
+#define SIOCDELRT		/*!< \brief Delete route. */
 
-#define SIOCGIFNETMASK  /*!< \brief Get net addr mask. */
-#define SIOCSIFNETMASK  /*!< \brief Set net addr mask. */
+#define SIOCGIFNETMASK	/*!< \brief Get net addr mask. */
+#define SIOCSIFNETMASK	/*!< \brief Set net addr mask. */
 
 
 #endif

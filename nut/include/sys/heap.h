@@ -36,10 +36,6 @@
  * For additional information see http://www.ethernut.de/
  */
 
-/*
- * $Id: heap.h 4477 2012-08-20 17:50:01Z haraldkipp $
- */
-
 #include <cfg/memory.h>
 #include <sys/types.h>
 

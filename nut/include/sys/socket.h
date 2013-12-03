@@ -1,4 +1,5 @@
 #ifndef _SYS_SOCKET_H_
+#define _SYS_SOCKET_H_
 
 /*
  * Copyright (C) 2001-2005 by egnite Software GmbH. All rights reserved.
@@ -60,75 +61,7 @@
  * SUCH DAMAGE.
  */
 
-/*
- * $Log$
- * Revision 1.12  2009/02/22 12:37:26  olereinhardt
- * Added NutUdpError and NutUdpSetSocketError to set and retrieve socket
- * errors. As udp sockets aren't connection oriented those errors will be
- * anounced asynchronously on the next NutUdpSend or NutUdpReceive
- *
- * Include "include/errno.h" instead of "include/net/errno.h"
- *
- * Revision 1.11  2008/08/20 06:56:59  haraldkipp
- * Implemented IP demultiplexer.
- *
- * Revision 1.10  2008/08/11 07:00:27  haraldkipp
- * BSD types replaced by stdint types (feature request #1282721).
- *
- * Revision 1.9  2008/04/18 13:32:00  haraldkipp
- * Changed size parameter from u_short to int, which is easier to handle
- * for 32-bit targets. You need to recompile your ARM code. No impact on
- * AVR expected
- * I changed u_int to int at some places to avoid some warnings during
- * compilation of Nut/Net.
- * libs.
- *
- * Revision 1.8  2005/07/26 15:49:59  haraldkipp
- * Cygwin support added.
- *
- * Revision 1.7  2005/04/08 10:01:21  freckle
- * removed #defines from unix emulation as provided by system headers
- *
- * Revision 1.6  2005/04/04 19:33:54  freckle
- * added creation of include/netdb_orig.h, include/sys/socket_orig.h and
- * include/netinet/in_orig.h to allow unix emulation to use tcp/ip sockets
- *
- * Revision 1.5  2004/07/30 19:54:46  drsung
- * Some code of TCP stack redesigned. Round trip time calculation is now
- * supported. Fixed several bugs in TCP state machine. Now TCP connections
- * should be more reliable under heavy traffic or poor physical connections.
- *
- * Revision 1.4  2004/03/16 16:48:44  haraldkipp
- * Added Jan Dubiec's H8/300 port.
- *
- * Revision 1.3  2004/02/02 19:03:09  drsung
- * Some more ICMP support added.
- *
- * Revision 1.2  2003/11/24 21:00:21  drsung
- * Packet queue added for UDP sockets.
- *
- * Revision 1.1.1.1  2003/05/09 14:41:21  haraldkipp
- * Initial using 3.2.1
- *
- * Revision 1.7  2003/02/04 18:00:53  harald
- * Version 3 released
- *
- * Revision 1.6  2002/09/15 16:46:57  harald
- * Error prototype added
- *
- * Revision 1.5  2002/06/26 17:29:29  harald
- * First pre-release with 2.4 stack
- *
- */
-
 #include <cfg/udp.h>
-
-#if defined(__linux__) || defined(__APPLE__) || defined(__CYGWIN__)
-
-/* use native version on unix emulation */
-#include <sys/socket_orig.h>
-
-#else /* embedded systems */
 #include <compiler.h>
 
 /*!
@@ -173,12 +106,7 @@
  */
 #define AF_INET     2       /*!< \brief internetwork: UDP, TCP, etc. */
 
-#endif /* unix / embedded */
 
-
-/* assure _SYS_SOCKET_H_ is set */
-#undef  _SYS_SOCKET_H_
-#define _SYS_SOCKET_H_
 
 #include <sys/sock_var.h>
 
@@ -194,9 +122,6 @@ extern int NutTcpConnect(TCPSOCKET *sock, uint32_t addr, uint16_t port);
 extern int NutTcpAccept(TCPSOCKET *sock, uint16_t port);
 extern int NutTcpInput(NUTDEVICE * dev, NETBUF *nb);
 extern int NutTcpSend(TCPSOCKET *sock, const void *data, int len);
-#ifdef __HARVARD_ARCH__
-extern int NutTcpSend_P(TCPSOCKET *sock, PGM_P data, int len);
-#endif
 extern int NutTcpCloseSocket(TCPSOCKET *sock);
 extern void NutTcpDestroySocket(TCPSOCKET *sock);
 extern int NutTcpReceive(TCPSOCKET *sock, void *data, int size);
@@ -207,9 +132,6 @@ extern void NutTcpDiscardBuffers(TCPSOCKET * sock);
 
 extern int NutTcpDeviceRead(TCPSOCKET *sock, void *buffer, int size);
 extern int NutTcpDeviceWrite(TCPSOCKET *sock, const void *buffer, int size);
-#ifdef __HARVARD_ARCH__
-extern int NutTcpDeviceWrite_P(TCPSOCKET *sock, PGM_P buffer, int size);
-#endif
 extern int NutTcpDeviceIOCtl(TCPSOCKET *sock, int cmd, void *param);
 extern int NutTcpDeviceClose(TCPSOCKET *sock);
 

@@ -34,73 +34,7 @@
  *
  */
 
-/*
- * $Log$
- * Revision 1.10  2009/01/17 11:26:51  haraldkipp
- * Getting rid of two remaining BSD types in favor of stdint.
- * Replaced 'u_int' by 'unsinged int' and 'uptr_t' by 'uintptr_t'.
- *
- * Revision 1.9  2009/01/09 17:54:28  haraldkipp
- * Added SPI bus controller for AVR and AT91.
- *
- * Revision 1.8  2008/08/11 07:00:25  haraldkipp
- * BSD types replaced by stdint types (feature request #1282721).
- *
- * Revision 1.7  2006/03/16 15:25:34  haraldkipp
- * Changed human readable strings from u_char to char to stop GCC 4 from
- * nagging about signedness.
- *
- * Revision 1.6  2006/01/05 16:45:34  haraldkipp
- * Added a new driver type IFTYP_FS.
- *
- * Revision 1.5  2005/08/02 17:46:49  haraldkipp
- * Major API documentation update.
- *
- * Revision 1.4  2004/06/07 15:07:00  olereinhardt
- * Added IFTYP_CAN
- *
- * Revision 1.3  2004/03/18 13:49:00  haraldkipp
- * Deprecated functions removed.
- * IFSTREAM structure taken from ifstream
- * header file.
- *
- * Revision 1.2  2004/03/16 16:48:44  haraldkipp
- * Added Jan Dubiec's H8/300 port.
- *
- * Revision 1.1.1.1  2003/05/09 14:41:19  haraldkipp
- * Initial using 3.2.1
- *
- * Revision 1.18  2003/05/06 17:58:04  harald
- * ATmega128 definitions moved to compiler include
- *
- * Revision 1.17  2003/03/31 14:34:08  harald
- * Added character device
- *
- * Revision 1.16  2003/02/04 18:00:52  harald
- * Version 3 released
- *
- * Revision 1.15  2003/01/14 16:35:04  harald
- * Definitions moved
- *
- * Revision 1.14  2002/11/02 15:17:01  harald
- * Library dependencies moved to compiler.h
- *
- * Revision 1.13  2002/09/15 16:46:28  harald
- * *** empty log message ***
- *
- * Revision 1.12  2002/08/08 17:24:21  harald
- * Using time constants by KU
- *
- * Revision 1.11  2002/07/03 16:45:41  harald
- * Using GCC 3.2
- *
- * Revision 1.10  2002/06/26 17:29:28  harald
- * First pre-release with 2.4 stack
- *
- */
-
 #include <sys/file.h>
-
 #include <stdint.h>
 
 /*!
@@ -111,19 +45,11 @@
 // wait times for emulation and reality
 // has to be overworked
 
-#ifndef __EMULATION__
 #define WAIT5       5
 #define WAIT50      50
 #define WAIT100     100
 #define WAIT250     250
 #define WAIT500     500
-#else
-#define WAIT5       1
-#define WAIT50      5
-#define WAIT100     10
-#define WAIT250     25
-#define WAIT500     50
-#endif
 
 /*!
  * \addtogroup xgDevice
@@ -238,13 +164,6 @@ struct _NUTDEVICE {
     int (*dev_write) (NUTFILE *, const void *, int);
 
     /*!
-     * \brief Write to device.
-     */
-#ifdef __HARVARD_ARCH__
-    int (*dev_write_P) (NUTFILE *, PGM_P, int);
-#endif
-
-    /*!
      * \brief Open a device or file.
      */
     NUTFILE * (*dev_open) (NUTDEVICE *, const char *, int, int);
@@ -275,9 +194,6 @@ struct _NUTVIRTUALDEVICE {
     uint8_t vdv_type;
     int (*vdv_read) (void *, void *, int);
     int (*vdv_write) (void *, const void *, int);
-#ifdef __HARVARD_ARCH__
-    int (*vdv_write_P) (void *, PGM_P, int);
-#endif
     int (*vdv_ioctl) (void *, int, void *);
 };
 

@@ -263,12 +263,7 @@
  * Include the runtime library header here. It may override any of the
  * following definitions.
  */
-#if defined(__AVR__)
-
-/* Only avr-libc is currently supported for GCC. */
-#include <toolchain/avrlibc.h>
-
-#elif defined(__AVR32__)
+#if defined(__AVR32__)
 
 #include <arch/avr32.h>
 #include <toolchain/generic.h>
@@ -286,11 +281,6 @@
 #include <toolchain/newlib.h>
 #endif
 
-#elif defined(__m68k__)
-
-#include <arch/m68k.h>
-#include <toolchain/generic.h>
-
 #endif
 
 #ifndef PROGMEM
@@ -307,7 +297,7 @@
 #ifndef _NOP
 #if defined(__arm__)
 #define _NOP() __asm__ __volatile__("mov r0, r0  @ _NOP")
-#elif defined(__AVR__) || defined(__AVR32__)
+#elif defined(__AVR32__)
 #define _NOP() __asm__ __volatile__("nop")
 #endif
 #endif

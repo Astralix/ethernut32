@@ -34,25 +34,6 @@
  *
  */
 
-/*
- * $Log$
- * Revision 1.3  2005/01/22 19:26:33  haraldkipp
- * Marked deprecated.
- *
- * Revision 1.2  2003/07/13 19:43:12  haraldkipp
- * Ethernut 2.0 support added.
- *
- * Revision 1.1.1.1  2003/05/09 14:41:04  haraldkipp
- * Initial using 3.2.1
- *
- * Revision 1.2  2003/05/06 18:39:37  harald
- * Realtek definitions
- *
- * Revision 1.1  2003/03/31 14:53:23  harald
- * Prepare release 3.1
- *
- */
-
 /*!
  * \file cfg/ethernut.h
  * \brief Ethernut hardware specification.

@@ -34,19 +34,6 @@
  *
  */
 
-/*
- * $Log$
- * Revision 1.2  2008/08/11 07:00:28  haraldkipp
- * BSD types replaced by stdint types (feature request #1282721).
- *
- * Revision 1.1.1.1  2003/05/09 14:41:23  haraldkipp
- * Initial using 3.2.1
- *
- * Revision 1.1  2003/02/04 18:13:09  harald
- * Version 3 released
- *
- */
-
 #include <compiler.h>
 #include <sys/types.h>
 #include <stdint.h>

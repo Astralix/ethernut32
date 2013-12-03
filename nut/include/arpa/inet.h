@@ -34,32 +34,6 @@
  *
  */
 
-/*
- * $Log$
- * Revision 1.3  2008/08/11 06:59:59  haraldkipp
- * BSD types replaced by stdint types (feature request #1282721).
- *
- * Revision 1.2  2006/03/16 15:25:29  haraldkipp
- * Changed human readable strings from u_char to char to stop GCC 4 from
- * nagging about signedness.
- *
- * Revision 1.1.1.1  2003/05/09 14:41:03  haraldkipp
- * Initial using 3.2.1
- *
- * Revision 1.7  2003/05/06 18:38:50  harald
- * Cleanup
- *
- * Revision 1.6  2003/02/04 18:00:36  harald
- * Version 3 released
- *
- * Revision 1.5  2002/08/08 17:22:47  harald
- * *** empty log message ***
- *
- * Revision 1.4  2002/06/26 17:29:14  harald
- * First pre-release with 2.4 stack
- *
- */
-
 #include <sys/types.h>
 #include <stdint.h>
 

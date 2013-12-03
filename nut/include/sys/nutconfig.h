@@ -33,43 +33,9 @@
  * For additional information see http://www.ethernut.de/
  */
 
-/*
- * $Log$
- * Revision 1.5  2005/08/02 17:46:49  haraldkipp
- * Major API documentation update.
- *
- * Revision 1.4  2005/02/10 07:06:48  hwmaier
- * Changes to incorporate support for AT90CAN128 CPU
- *
- * Revision 1.3  2004/06/07 15:08:58  olereinhardt
- * Added suport for M-CAN Config header file
- *
- * Revision 1.2  2004/03/18 15:44:47  haraldkipp
- * ICCAVR failed to compile
- *
- * Revision 1.1  2004/03/16 16:56:21  haraldkipp
- * Added Jan Dubiec's H8/300 port.
- *
- */
-
 /*!
  * \file sys/nutconfig.h
  * \brief Hardware configuration.
  */
-
-#if defined(__AVR__) || defined(ATMEGA)
-
-#include <cfg/arch/avr.h>
-
-#if defined(MCAN)
-/* M-CAN special hardware definitions */
-#include <cfg/m-can.h>
-#endif
-
-#elif defined(__H8300H__) || defined(__H8300S__)
-
-#include <cfg/rport.h>
-
-#endif
 
 #endif

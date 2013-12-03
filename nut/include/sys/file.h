@@ -34,22 +34,6 @@
  *
  */
 
-/*
- * $Log$
- * Revision 1.2  2006/10/08 16:48:22  haraldkipp
- * Documentation fixed
- *
- * Revision 1.1.1.1  2003/05/09 14:41:20  haraldkipp
- * Initial using 3.2.1
- *
- * Revision 1.2  2003/04/21 16:59:51  harald
- * Global eof definition added
- *
- * Revision 1.1  2003/02/04 18:13:09  harald
- * Version 3 released
- *
- */
-
 #include <sys/types.h>
 
 struct _NUTDEVICE;

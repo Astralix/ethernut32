@@ -49,62 +49,6 @@
  * "copying-liquorice.txt" for details.
  */
 
-/*
- * $Log$
- * Revision 1.13  2008/08/22 09:25:34  haraldkipp
- * Clock value caching and new functions NutArchClockGet, NutClockGet and
- * NutClockSet added.
- *
- * Revision 1.12  2008/08/11 07:00:28  haraldkipp
- * BSD types replaced by stdint types (feature request #1282721).
- *
- * Revision 1.11  2008/07/08 08:25:05  haraldkipp
- * NutDelay is no more architecture specific.
- * Number of loops per millisecond is configurable or will be automatically
- * determined.
- * A new function NutMicroDelay provides shorter delays.
- *
- * Revision 1.10  2006/06/28 14:36:34  haraldkipp
- * Event/thread/timer re-design.
- *
- * Revision 1.9  2005/07/26 16:04:02  haraldkipp
- * Hardware dependent timer code moved to nutlibarch.
- *
- * Revision 1.8  2005/07/12 16:36:53  freckle
- * made NutTimerInsert public
- *
- * Revision 1.7  2005/07/12 16:26:08  freckle
- * extracted timer creation from NutTimerStartTicks into NutTimerCreate
- *
- * Revision 1.6  2005/06/12 16:54:14  haraldkipp
- * New function processes elapsed timers.
- *
- * Revision 1.5  2005/01/19 17:59:42  freckle
- * Improved interrupt performance by reducing some critical section
- *
- * Revision 1.4  2004/03/16 16:48:44  haraldkipp
- * Added Jan Dubiec's H8/300 port.
- *
- * Revision 1.3  2003/11/03 16:35:18  haraldkipp
- * New API returns system uptime in miliseconds
- *
- * Revision 1.2  2003/10/13 10:17:11  haraldkipp
- * Seconds counter added
- *
- * Revision 1.1.1.1  2003/05/09 14:41:22  haraldkipp
- * Initial using 3.2.1
- *
- * Revision 1.12  2003/02/04 18:00:54  harald
- * Version 3 released
- *
- * Revision 1.11  2003/01/14 16:38:18  harald
- * New tick counter query
- *
- * Revision 1.10  2002/06/26 17:29:29  harald
- * First pre-release with 2.4 stack
- *
- */
-
 #include <sys/types.h>
 #include <arch/timer.h>
 
@@ -168,6 +112,7 @@ extern volatile struct timeval system_time;
 #define NUT_HWCLK_PERIPHERAL    NUT_HWCLK_CPU
 #endif
 
+//TODO: Implement this via configuration tools?
 #ifndef NUT_HWCLK_MAX
   #if defined(MCU_STM32F10X)
     #define NUT_HWCLK_MAX           NUT_HWCLK_PCLK2

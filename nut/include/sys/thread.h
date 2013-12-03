@@ -52,8 +52,6 @@
 /*!
  * \file sys/thread.h
  * \brief Multi-threading support.
- *
- * \verbatim File version $Id: thread.h 4477 2012-08-20 17:50:01Z haraldkipp $ \endverbatim
  */
 
 #include <compiler.h>
@@ -158,13 +156,6 @@ struct _NUTTHREADINFO {
     uint8_t *td_memory;          /*!< \brief Pointer to heap memory used for stack. */
     HANDLE td_timer;            /*!< \brief Event timer. */
     volatile HANDLE td_queue;   /*!< \brief Root entry of the waiting queue. */
-#ifdef __NUT_EMULATION__
-    pthread_t td_pthread;       /*!< \brief pthread for unix emulations. */
-    void (*td_fn) (void *);     /*!< \brief thread function */
-    void *td_arg;               /*!< \brief args given to NutCreateThread */
-    pthread_cond_t td_cv;       /*!< \brief conditional variable for unix emulations. */
-    uint16_t td_cs_level;        /*! \brief number critical sections has been entered without leaving */
-#endif
 };
 
 /*!
@@ -255,9 +246,8 @@ extern NUTTHREADINFO *runQueue;
 extern void NutThreadInit(void);
 #endif
 
-#if defined(__GNUC__) && defined (__AVR_ENHANCED__)
+//TODO: Add description and check implementation
 extern uint8_t NutThreadSetSleepMode(uint8_t mode);
-#endif
 
 
 /*!

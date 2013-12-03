@@ -34,10 +34,6 @@
  *
  */
 
-/*
- * $Id: nutdebug.h 4473 2012-08-20 15:12:45Z haraldkipp $
- */
-
 #include <cfg/memory.h>
 #include <sys/types.h>
 

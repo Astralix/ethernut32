@@ -49,51 +49,6 @@
  * "copying-liquorice.txt" for details.
  */
 
-/*
- * $Log$
- * Revision 1.9  2008/08/11 07:00:25  haraldkipp
- * BSD types replaced by stdint types (feature request #1282721).
- *
- * Revision 1.8  2006/10/08 16:48:22  haraldkipp
- * Documentation fixed
- *
- * Revision 1.7  2006/08/01 07:39:12  haraldkipp
- * Missing typecast in NutEventPostFromIrq() fixed. Thanks to Matthias Wilde.
- *
- * Revision 1.6  2006/06/28 14:34:02  haraldkipp
- * Event/thread/timer re-design.
- * A new macro NutEventPostFromIrq() replaces the routine with the same name.
- * In opposite to the previous routine, no result will be returned by this
- * macro, which may break your existing code.
- * The SIGNALED definition had been replaced by a less platform dependent
- * variant.
- *
- * Revision 1.5  2005/01/24 21:11:46  freckle
- * renamed NutEventPostFromIRQ into NutEventPostFromIrq
- *
- * Revision 1.4  2005/01/21 16:49:44  freckle
- * Seperated calls to NutEventPostAsync between Threads and IRQs
- *
- * Revision 1.3  2004/03/16 16:48:44  haraldkipp
- * Added Jan Dubiec's H8/300 port.
- *
- * Revision 1.2  2003/07/20 18:28:54  haraldkipp
- * Explain how to disable timeout.
- *
- * Revision 1.1.1.1  2003/05/09 14:41:19  haraldkipp
- * Initial using 3.2.1
- *
- * Revision 1.8  2003/02/04 18:00:52  harald
- * Version 3 released
- *
- * Revision 1.7  2003/01/14 16:37:58  harald
- * Return number of woken up threads
- *
- * Revision 1.6  2002/06/26 17:29:28  harald
- * First pre-release with 2.4 stack
- *
- */
-
 #include <sys/thread.h>
 
 /*!

@@ -58,20 +58,12 @@
 
 #include <stdint.h>
 
-#ifdef __NUT_EMULATION__
-#include <arch/unix/timer.h>
-#elif defined(__AVR__)
-#include <arch/avr/timer.h>
-#elif defined(__arm__) && !defined(__CORTEX__)
+#if defined(__arm__) && !defined(__CORTEX__)
 #include <arch/arm/timer.h>
 #elif defined(__arm__) && defined(__CORTEX__)
 #include <arch/cm3/timer.h>
 #elif defined(__AVR32__)
 #include <arch/avr32/timer.h>
-#elif defined(__H8300H__) || defined(__H8300S__)
-#include <arch/h8300h/timer.h>
-#elif defined(__m68k__)
-#include <arch/m68k/timer.h>
 #endif
 
 /*
