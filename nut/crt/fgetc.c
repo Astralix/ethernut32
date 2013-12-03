@@ -31,31 +31,6 @@
  *
  */
 
-/*
- * $Log$
- * Revision 1.5  2009/01/17 15:37:52  haraldkipp
- * Added some NUTASSERT macros to check function parameters.
- *
- * Revision 1.4  2008/09/18 09:45:25  haraldkipp
- * Reading 0xFF returned EOF. Fixed.
- *
- * Revision 1.3  2008/08/11 06:59:40  haraldkipp
- * BSD types replaced by stdint types (feature request #1282721).
- *
- * Revision 1.2  2007/04/12 09:09:57  haraldkipp
- * Support for feof() and ferror() was missing.
- *
- * Revision 1.1.1.1  2003/05/09 14:40:25  haraldkipp
- * Initial using 3.2.1
- *
- * Revision 1.2  2003/04/21 17:33:28  harald
- * Return correct result for character 0xFF
- *
- * Revision 1.1  2003/02/04 17:49:04  harald
- * *** empty log message ***
- *
- */
-
 #include "nut_io.h"
 
 #include <sys/nutdebug.h>

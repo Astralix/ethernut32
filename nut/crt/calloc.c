@@ -58,23 +58,6 @@
  * SUCH DAMAGE.
  */
 
-/*
- * $Log$
- * Revision 1.1  2009/02/06 15:45:04  haraldkipp
- * Routines using heap memory moved from c to crt module.
- * We now have strdup() and calloc().
- *
- * Revision 1.3  2006/10/08 16:48:08  haraldkipp
- * Documentation fixed
- *
- * Revision 1.2  2005/08/02 17:46:47  haraldkipp
- * Major API documentation update.
- *
- * Revision 1.1  2004/09/08 10:23:26  haraldkipp
- * Generic C stdlib added
- *
- */
-
 #include <compiler.h>
 
 #include <stdlib.h>

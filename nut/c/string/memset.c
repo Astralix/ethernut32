@@ -61,13 +61,6 @@
  * SUCH DAMAGE.
  */
 
-/*
- * $Log$
- * Revision 1.1  2004/09/08 10:23:43  haraldkipp
- * Generic C string library added
- *
- */
-
 #include <string.h>
 
 /*!

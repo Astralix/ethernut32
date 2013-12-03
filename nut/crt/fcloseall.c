@@ -31,19 +31,6 @@
  *
  */
 
-/*
- * $Log$
- * Revision 1.2  2008/08/11 06:59:40  haraldkipp
- * BSD types replaced by stdint types (feature request #1282721).
- *
- * Revision 1.1.1.1  2003/05/09 14:40:24  haraldkipp
- * Initial using 3.2.1
- *
- * Revision 1.1  2003/02/04 17:49:04  harald
- * *** empty log message ***
- *
- */
-
 #include "nut_io.h"
 
 /*!

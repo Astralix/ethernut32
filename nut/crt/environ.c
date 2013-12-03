@@ -30,6 +30,8 @@
  * For additional information see http://www.ethernut.de/
  */
 
+//FIXME: Incomplete header, wrong format
+
 #include <dev/nvmem.h>
 
 #include <stdint.h>

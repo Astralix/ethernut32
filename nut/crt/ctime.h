@@ -34,11 +34,6 @@
 /*
  * Some constants for use in time conversion functions.
  *
- * $Log$
- * Revision 1.2  2003/11/24 18:05:11  drsung
- * first release
- *
- *
  */
 
 #ifndef __CTIME_H

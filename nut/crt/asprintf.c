@@ -32,10 +32,6 @@
  * For additional information see http://www.ethernut.de/
  */
 
-/*
- * $Id: asprintf.c 4993 2013-02-20 10:33:34Z haraldkipp $
- */
-
 #include "nut_io.h"
 #include <sys/nutdebug.h>
 

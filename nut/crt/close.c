@@ -31,26 +31,6 @@
  *
  */
 
-/*
- * $Log$
- * Revision 1.4  2009/01/17 15:37:52  haraldkipp
- * Added some NUTASSERT macros to check function parameters.
- *
- * Revision 1.3  2009/01/17 11:26:38  haraldkipp
- * Getting rid of two remaining BSD types in favor of stdint.
- * Replaced 'u_int' by 'unsinged int' and 'uptr_t' by 'uintptr_t'.
- *
- * Revision 1.2  2004/03/16 16:48:27  haraldkipp
- * Added Jan Dubiec's H8/300 port.
- *
- * Revision 1.1.1.1  2003/05/09 14:40:24  haraldkipp
- * Initial using 3.2.1
- *
- * Revision 1.1  2003/02/04 17:49:04  harald
- * *** empty log message ***
- *
- */
-
 #include "nut_io.h"
 
 #include <sys/device.h>

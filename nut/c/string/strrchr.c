@@ -58,16 +58,6 @@
  * SUCH DAMAGE.
  */
 
-/*
- * $Log$
- * Revision 1.2  2007/08/29 07:43:53  haraldkipp
- * Documentation updated and corrected.
- *
- * Revision 1.1  2004/09/08 10:24:10  haraldkipp
- * Generic C string library added
- *
- */
-
 #include <compiler.h>
 #include <string.h>
 

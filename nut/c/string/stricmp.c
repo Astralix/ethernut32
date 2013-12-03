@@ -58,19 +58,6 @@
  * SUCH DAMAGE.
  */
 
-/*
- * $Log$
- * Revision 1.3  2008/08/11 06:59:39  haraldkipp
- * BSD types replaced by stdint types (feature request #1282721).
- *
- * Revision 1.2  2006/10/08 16:48:08  haraldkipp
- * Documentation fixed
- *
- * Revision 1.1  2004/09/08 10:24:00  haraldkipp
- * Generic C string library added
- *
- */
-
 #include <compiler.h>
 #include <string.h>
 

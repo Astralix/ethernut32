@@ -36,10 +36,6 @@
 /*!
  * \file dev/gpio.h
  * \brief General purpose I/O.
- *
- * \verbatim
- * $Id: gpio.h 2560 2009-03-18 04:00:06Z thiagocorrea $
- * \endverbatim
  */
 
 #define NUTGPIO_PORT    0

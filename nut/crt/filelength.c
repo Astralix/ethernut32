@@ -31,39 +31,6 @@
  *
  */
 
-/*
- * $Log$
- * Revision 1.8  2009/01/17 15:37:52  haraldkipp
- * Added some NUTASSERT macros to check function parameters.
- *
- * Revision 1.7  2009/01/17 11:26:38  haraldkipp
- * Getting rid of two remaining BSD types in favor of stdint.
- * Replaced 'u_int' by 'unsinged int' and 'uptr_t' by 'uintptr_t'.
- *
- * Revision 1.6  2004/08/05 06:49:44  drsung
- * Now the correct value for VIRTUALDEVICEs is returned.
- *
- * Revision 1.5  2004/07/30 19:14:09  drsung
- * filelength implemented for VIRTUALDEVICEs using the new
- * global ioctl command IOCTL_GETFILESIZE.
- *
- * Revision 1.4  2004/03/16 16:48:27  haraldkipp
- * Added Jan Dubiec's H8/300 port.
- *
- * Revision 1.3  2003/07/20 18:24:55  haraldkipp
- * errno support added.
- *
- * Revision 1.2  2003/07/20 17:19:00  haraldkipp
- * Description and result corrected.
- *
- * Revision 1.1.1.1  2003/05/09 14:40:25  haraldkipp
- * Initial using 3.2.1
- *
- * Revision 1.1  2003/02/04 17:49:04  harald
- * *** empty log message ***
- *
- */
-
 #include "nut_io.h"
 
 #include <errno.h>

@@ -34,10 +34,6 @@
  * For additional information see http://www.ethernut.de/
  */
 
-/*
- * $Id: calloc_dbg.c 4473 2012-08-20 15:12:45Z haraldkipp $
- */
-
 #include <compiler.h>
 
 #include <stdlib.h>

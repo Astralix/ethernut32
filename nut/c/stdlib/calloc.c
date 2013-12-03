@@ -58,19 +58,6 @@
  * SUCH DAMAGE.
  */
 
-/*
- * $Log$
- * Revision 1.3  2006/10/08 16:48:08  haraldkipp
- * Documentation fixed
- *
- * Revision 1.2  2005/08/02 17:46:47  haraldkipp
- * Major API documentation update.
- *
- * Revision 1.1  2004/09/08 10:23:26  haraldkipp
- * Generic C stdlib added
- *
- */
-
 #include <stdlib.h>
 #include <string.h>
 #include <limits.h>
