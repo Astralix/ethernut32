@@ -95,7 +95,6 @@ char *NutSegBufReset(void)
 {
     segbuf_rp = segbuf_wp = segbuf_start;
     segbuf_rs = segbuf_ws = 0;
-    NutSegBufEnable(0);
     segbuf_empty = 1;
     segbuf_used = 0;
 
@@ -116,12 +115,6 @@ char *NutSegBufReset(void)
  */
 char *NutSegBufInit(size_t size)
 {
-
-#if NUTBANK_COUNT
-    segbuf_start = (char *)(NUTBANK_START);
-    segbuf_end = (char *)(NUTBANK_START) + NUTBANK_SIZE;
-    segbuf_total = (uint32_t) NUTBANK_COUNT *(uint32_t) NUTBANK_SIZE;
-#else
     if (size == 0)
         size = NutHeapAvailable() / 2;
     if (segbuf_start) {
@@ -130,7 +123,6 @@ char *NutSegBufInit(size_t size)
     if ((segbuf_start = NutHeapAlloc(size)) != NULL)
         segbuf_end = segbuf_start + size;
     segbuf_total = size;
-#endif
 
     return NutSegBufReset();
 }
@@ -154,7 +146,6 @@ char *NutSegBufWriteRequest(size_t * bcp)
     else
         *bcp = segbuf_rp - segbuf_wp;
 
-    NutSegBufEnable(segbuf_ws);
     return segbuf_wp;
 }
 
@@ -179,7 +170,6 @@ char *NutSegBufReadRequest(size_t * bcp)
     else if ((*bcp = segbuf_wp - segbuf_rp) == 0 && segbuf_ws == segbuf_rs)
         segbuf_empty = 1;
 
-    NutSegBufEnable(segbuf_rs);
     return segbuf_rp;
 }
 
@@ -202,11 +192,6 @@ char *NutSegBufWriteCommit(size_t bc)
         segbuf_used += bc;
         if (segbuf_wp == segbuf_end) {
             segbuf_wp = segbuf_start;
-#if NUTBANK_COUNT > 0
-            if (++segbuf_ws >= NUTBANK_COUNT)
-                segbuf_ws = 0;
-#endif
-            NutSegBufEnable(segbuf_ws);
         }
     }
     return segbuf_wp;
@@ -230,11 +215,6 @@ char *NutSegBufReadCommit(size_t bc)
         segbuf_used -= bc;
         if (segbuf_rp == segbuf_end) {
             segbuf_rp = segbuf_start;
-#if NUTBANK_COUNT > 0
-            if (++segbuf_rs >= NUTBANK_COUNT)
-                segbuf_rs = 0;
-#endif
-            NutSegBufEnable(segbuf_rs);
         }
         if (segbuf_rp == segbuf_wp  && segbuf_rs == segbuf_ws)
             segbuf_empty = 1;
@@ -260,13 +240,8 @@ void NutSegBufWriteLast(size_t bc)
         segbuf_empty = 0;
         if (segbuf_wp == segbuf_end) {
             segbuf_wp = segbuf_start;
-#if NUTBANK_COUNT > 0
-            if (++segbuf_ws >= NUTBANK_COUNT)
-                segbuf_ws = 0;
-#endif
         }
     }
-    NutSegBufEnable(segbuf_rs);
 }
 
 /*!
@@ -285,15 +260,10 @@ void NutSegBufReadLast(size_t bc)
         segbuf_used -= bc;
         if (segbuf_rp == segbuf_end) {
             segbuf_rp = segbuf_start;
-#if NUTBANK_COUNT > 0
-            if (++segbuf_rs >= NUTBANK_COUNT)
-                segbuf_rs = 0;
-#endif
         }
         if (segbuf_rp == segbuf_wp && segbuf_rs == segbuf_ws)
             segbuf_empty = 1;
     }
-    NutSegBufEnable(segbuf_ws);
 }
 
 

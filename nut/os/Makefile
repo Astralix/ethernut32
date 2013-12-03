@@ -46,12 +46,6 @@ SRC1 = 	nutinit.c
 SRC2 =  devreg.c timer.c msg.c event.c thread.c heap.c osdebug.c confos.c \
 	version.c semaphore.c mutex.c tracer.c condition.c fatal.c panic.c
 
-#Add support for memory banks on AVR architecture
-ifeq ($(ARCH), avr)
-    SRC2 += bankmem.c
-endif
-
-
 OBJ1 = $(SRC1:.c=.o)
 OBJ2 = $(SRC2:.c=.o)
 

@@ -33,63 +33,6 @@
 /*!
  * \file fs/pnutfs.c
  * \brief Peanut File System.
- *
- * \verbatim
- *
- * $Log$
- * Revision 1.16  2009/02/13 14:52:05  haraldkipp
- * Include memdebug.h for heap management debugging support.
- *
- * Revision 1.15  2009/01/17 11:26:46  haraldkipp
- * Getting rid of two remaining BSD types in favor of stdint.
- * Replaced 'u_int' by 'unsinged int' and 'uptr_t' by 'uintptr_t'.
- *
- * Revision 1.14  2008/08/27 06:45:23  thornen
- * Added bank support for MMnet03..04 MMnet102..104
- *
- * Revision 1.13  2008/08/26 17:36:45  haraldkipp
- * Revoked changes 2008/08/26 by thornen.
- *
- * Revision 1.11  2008/08/11 06:59:42  haraldkipp
- * BSD types replaced by stdint types (feature request #1282721).
- *
- * Revision 1.10  2006/08/01 07:43:48  haraldkipp
- * PNUT file system failed after some modifications done previously for the
- * PHAT file system. During directory open, the NUTFILE structure must be
- * allocated in the file system driver. PnutDirRead() must return -1 if the
- * end of a directory is reached. Reading unused directory entries must update
- * the file position pointer.
- *
- * Revision 1.9  2006/03/02 20:01:17  haraldkipp
- * Added implementation of dev_size makes _filelength() work, which in turn
- * enables the use of this file system in pro/httpd.c.
- *
- * Revision 1.8  2006/01/05 16:45:20  haraldkipp
- * Dynamic NUTFILE allocation for detached block device.
- *
- * Revision 1.7  2005/09/08 10:12:44  olereinhardt
- * Added #ifdef statement in NutSegBufEnable to avoid compiler warning
- * if no banked mem is used.
- *
- * Revision 1.6  2005/09/07 16:23:41  christianwelzel
- * Added support for MMnet02. Bankswitching is now handled in bankmem.h
- *
- * Revision 1.5  2005/08/02 17:46:47  haraldkipp
- * Major API documentation update.
- *
- * Revision 1.4  2005/05/16 08:33:59  haraldkipp
- * Added banking support for Arthernet.
- *
- * Revision 1.3  2005/02/21 11:10:21  olereinhardt
- * Changed deckaration of the "root" variable to compile with unix emulation
- *
- * Revision 1.2  2005/02/07 18:57:47  haraldkipp
- * ICCAVR compile errors fixed
- *
- * Revision 1.1  2005/02/05 20:35:21  haraldkipp
- * Peanut added
- *
- * \endverbatim
  */
 
 #include <compiler.h>
@@ -156,17 +99,8 @@
 #endif
 
 #ifndef PNUTBANK_COUNT
-#ifdef ARTHERNET1
-/* Default for Arthernet 1. */
-#define PNUTBANK_COUNT 15
-#elif MMNET02  || MMNET03  || MMNET04 ||\
-      MMNET102 || MMNET103 || MMNET104
-/* Default for MMnte02. */
-#define PNUTBANK_COUNT 6
-#else
 /* Default for Ethernet 2. */
 #define PNUTBANK_COUNT 30
-#endif
 #endif
 
 /*@}*/
@@ -354,11 +288,8 @@ void BankSelect(PNUT_BLKNUM blk)
 
 // This is a hack to avoid compiler warning if no banking is enabled...
 // But I don't like moving code to header files at all.. (Ole Reinhardt)
-#if NUTBANK_COUNT
-    int bank = blk / BLOCKS_PER_BANK;
-#endif
     // Bankswitching is now handled in bankmem.h
-    NutSegBufEnable(bank);
+	//FIXME: Remove as ARM/Cortex doesn't support it
 }
 
 /*!
