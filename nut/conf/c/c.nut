@@ -32,19 +32,6 @@
 
 -- Operating system functions
 --
--- $Log$
--- Revision 1.4  2005/07/20 09:18:57  haraldkipp
--- Subdivided
---
--- Revision 1.3  2004/08/18 13:46:08  haraldkipp
--- Fine with avr-gcc
---
--- Revision 1.2  2004/08/03 15:09:31  haraldkipp
--- Another change of everything
---
--- Revision 1.1  2004/06/07 16:32:45  haraldkipp
--- First release
---
 --
 
 nutc =

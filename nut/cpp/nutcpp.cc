@@ -31,15 +31,6 @@
  *
  */
 
-/*
- * $Log: nutcpp.cc,v $
- * Revision 1.1  2005/01/22 19:38:25  haraldkipp
- * Added C++ support contributed by Oliver Schulz (MPI).
- *
- *
- */
-
-
 #include <cpp/nutcpp.h>
 
 

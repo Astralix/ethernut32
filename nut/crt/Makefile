@@ -50,20 +50,6 @@ SRCC =  close.c clrerr.c ioctl.c open.c getf.c read.c putf.c write.c fclose.c \
         sprintf.c sscanf.c vsprintf.c vsscanf.c gmtime.c localtim.c mktime.c time.c \
         tzset.c errno.c malloc.c environ.c getenv.c putenv.c setenv.c
 
-SRCCP = fprintf_p.c fputs_p.c fscanf_p.c fwrite_p.c printf_p.c puts_p.c \
-	scanf_p.c sprintf_p.c sscanf_p.c vfprintf_p.c vfscanf_p.c \
-	vsprintf_p.c vsscanf_p.c write_p.c
-
-ifneq (, $(findstring __HARVARD_ARCH__, $(HWDEF)))
-# Include _P functions for Harvard based MCUs
-    SRCC += $(SRCCP)
-endif
-
-ifneq (, $(findstring h8300, $(ARCH)))
-# Include errno definition for H8 based MCUs
-    SRCC += errno.c
-endif
-
 SRCS =  $(SRCC) putf.c getf.c
 SRCF =  $(SRCC) putff.c getff.c
 
@@ -87,10 +73,6 @@ $(TARGF): $(OBJF)
 install: $(TARGS)
 	$(CP) $(TARG) $(LIBDIR)/$(TARG)
 	$(CP) $(TARGF) $(LIBDIR)/$(TARGF)
-ifeq ($(ARCH), unix)
-	$(RANLIB) $(LIBDIR)/$(TARG)
-	$(RANLIB) $(LIBDIR)/$(TARGF)
-endif
 
 clean:
 	@echo "  [CLEANING] $(TARGS)..."

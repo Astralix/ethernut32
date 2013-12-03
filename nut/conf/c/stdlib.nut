@@ -32,14 +32,6 @@
 
 -- Standard C runtime
 --
--- $Log$
--- Revision 1.2  2009/02/06 15:45:02  haraldkipp
--- Routines using heap memory moved from c to crt module.
--- We now have strdup() and calloc().
---
--- Revision 1.1  2005/07/20 09:18:58  haraldkipp
--- Subdivided
---
 --
 
 nutc_stdlib =
