@@ -124,4 +124,7 @@
 
 #define GPIO_AF_EVENTOUT GPIO_AD_F
 
-void GPIO_PinAFConfig(GPIO_TypeDef* GPIOx, nutgpio_pin_t GPIO_PinSource, uint8_t GPIO_AF);
+#define GPIO_PinAFConfig( bank, bit, af) GpioPinFunctionSet( (GPIO_TypeDef*)bank, bit, af)
+
+void GpioPinFunctionSet(GPIO_TypeDef* GPIOx, nutgpio_pin_t GPIO_PinSource, uint8_t GPIO_AF);
+int GpioPortFunctionSet( int bank, uint32_t mask, int af);

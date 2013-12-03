@@ -281,7 +281,7 @@ static int checkpin_and_config(STM32_I2CCB *icb)
         else
             scl_port= NUTGPIO_PORTB;
 
-        GpioPinConfigSet(
+        GpioPortConfigSet(
             sda_port, icb->sda_pin, GPIO_CFG_OUTPUT| GPIO_CFG_PERIPHAL|
             GPIO_CFG_MULTIDRIVE| GPIO_CFG_PULLUP | GPIO_CFG_SPEED_FAST);
 

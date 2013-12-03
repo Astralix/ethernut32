@@ -1903,7 +1903,7 @@ nutarch_cm3_stm32_devices =
         name = "nutarch_cm3_stm32_i2c1_v1",
         brief = "STM32 I2C Bus 1 on F1/2/4 and L1",
         description = "STM32F hardware I2C V1 support.",
-        requires = { "LICENSE_MCD_ST_LIBERTY", "LICENSE_ST_GUIDANCE_ONLY", "HW_I2C1_STM32" },
+        requires = { "LICENSE_MCD_ST_LIBERTY", "LICENSE_ST_GUIDANCE_ONLY", "HW_I2C1_STM32V1" },
         provides = { "I2CBUS_CONTROLLER" },
         sources =
         {
@@ -1960,7 +1960,7 @@ nutarch_cm3_stm32_devices =
         name = "nutarch_cm3_stm32_i2c2_v1",
         brief = "STM32 I2C Bus 1 on F3",
         description = "STM32F hardware I2C V1 support.",
-        requires = { "LICENSE_MCD_ST_LIBERTY", "LICENSE_ST_GUIDANCE_ONLY", "HW_I2C2_STM32" },
+        requires = { "LICENSE_MCD_ST_LIBERTY", "LICENSE_ST_GUIDANCE_ONLY", "HW_I2C2_STM32V1" },
         provides = { "I2CBUS_CONTROLLER" },
         sources =
         {
@@ -2018,7 +2018,7 @@ nutarch_cm3_stm32_devices =
         name = "nutarch_cm3_stm32_i2c3_v1",
         brief = "STM32 I2C Bus 3",
         description = "STM32F hardware I2C V1 support.",
-        requires = { "LICENSE_MCD_ST_LIBERTY", "LICENSE_ST_GUIDANCE_ONLY", "HW_I2C3_STM32" },
+        requires = { "LICENSE_MCD_ST_LIBERTY", "LICENSE_ST_GUIDANCE_ONLY", "HW_I2C3_STM32V1" },
         provides = { "I2CBUS_CONTROLLER" },
         sources =
         {

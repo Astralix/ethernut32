@@ -140,7 +140,7 @@ int GpioPortConfigSet(int bank, uint32_t mask, uint32_t flags)
     return 0;
 }
 
-int GpioPinConfigSet(int bank, int bit, uint32_t flags)
+int GpioPinConfigSet( int bank, int bit, uint32_t flags)
 {
     NUTASSERT(IS_GPIO_ALL_PERIPH(bank));
 #if defined(MCU_STM32F3)
@@ -312,6 +312,7 @@ int GpioPinConfigSet(int bank, int bit, uint32_t flags)
 extern int GpioRegisterIrqHandler(GPIO_SIGNAL * sig, uint8_t bit, void (*handler) (void *), void *arg)
 {
     int rc = 0;
+    RCC->APB2ENR |= RCC_APB2ENR_SYSCFGEN;
 #if 0
     if (bit<5) {
         NutRegisterIrqHandler( &sig_INTERRUPT0, void(* handler)(void *), void * arg)
@@ -418,7 +419,7 @@ int GpioIrqDisable(GPIO_SIGNAL * sig, uint8_t bit)
   *            @arg GPIO_AF_EVENTOUT: Connect EVENTOUT pins to AF15
   * @retval None
   */
-void GPIO_PinAFConfig(GPIO_TypeDef* GPIOx, nutgpio_pin_t GPIO_PinSource, uint8_t GPIO_AF)
+void GpioPinFunctionSet(GPIO_TypeDef* GPIOx, nutgpio_pin_t GPIO_PinSource, uint8_t GPIO_AF)
 {
   uint32_t temp = 0x00;
   uint32_t temp_2 = 0x00;

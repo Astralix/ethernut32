@@ -66,6 +66,8 @@ static uint32_t SystemCoreClock = 0;
 
 const uint32_t MSIFreqTable[8] = {65536, 131072, 262144,  524288, 1048000, 2097000, 4194000, 0};
 static const uint8_t APBPrescTable[8]  = {1, 1, 1, 1, 2, 4, 8, 16};
+static const uint8_t PLLDivTable[] = { 1, 2, 3, 4 };
+static const uint8_t PLLMulTable[] = { 3, 4, 6, 8, 12, 16, 24, 32, 48 };
 
 /*----------------  Clock Setup Procedure ------------------------------
  *
@@ -110,7 +112,7 @@ static const uint8_t APBPrescTable[8]  = {1, 1, 1, 1, 2, 4, 8, 16};
  */
 void SystemCoreClockUpdate(void)
 {
-    uint32_t pllmull = 0, plldiv = 0, msirange;
+    uint32_t pllmul = 0, plldiv = 0, msirange;
     uint32_t rcc;
 
     rcc = RCC->CFGR;
@@ -130,26 +132,32 @@ void SystemCoreClockUpdate(void)
             SystemCoreClock = HSE_VALUE;
             break;
         case RCC_CFGR_SWS_PLL:
+#if 1
+        	pllmul = PLLMulTable[(rcc & RCC_CFGR_PLLMUL) >> 18];
+#else
             /* Assume that values not allowed don't occur*/
-            if      (rcc & RCC_CFGR_PLLMUL4)  pllmull =  4;
-            else if (rcc & RCC_CFGR_PLLMUL6)  pllmull =  6;
-            else if (rcc & RCC_CFGR_PLLMUL8)  pllmull =  8;
-            else if (rcc & RCC_CFGR_PLLMUL12) pllmull = 12;
-            else if (rcc & RCC_CFGR_PLLMUL16) pllmull = 16;
-            else if (rcc & RCC_CFGR_PLLMUL24) pllmull = 24;
-            else if (rcc & RCC_CFGR_PLLMUL32) pllmull = 32;
-            else if (rcc & RCC_CFGR_PLLMUL48) pllmull = 48;
-            else                              pllmull =  3;
-
+            if      (rcc & RCC_CFGR_PLLMUL4)  pllmul =  4;
+            else if (rcc & RCC_CFGR_PLLMUL6)  pllmul =  6;
+            else if (rcc & RCC_CFGR_PLLMUL8)  pllmul =  8;
+            else if (rcc & RCC_CFGR_PLLMUL12) pllmul = 12;
+            else if (rcc & RCC_CFGR_PLLMUL16) pllmul = 16;
+            else if (rcc & RCC_CFGR_PLLMUL24) pllmul = 24;
+            else if (rcc & RCC_CFGR_PLLMUL32) pllmul = 32;
+            else if (rcc & RCC_CFGR_PLLMUL48) pllmul = 48;
+            else                              pllmul =  3;
+#endif
+#if 1
+            plldiv = PLLDivTable[(rcc & RCC_CFGR_PLLDIV) >> 22];
+#else
             if((rcc & RCC_CFGR_PLLDIV4) == RCC_CFGR_PLLDIV4) plldiv = 4;
             else if (rcc & RCC_CFGR_PLLDIV3)                 plldiv = 3;
             else if (rcc & RCC_CFGR_PLLDIV2)                 plldiv = 2;
             else                                             plldiv = 1;
-
+#endif
             if (rcc & RCC_CFGR_PLLSRC_HSE)
-                SystemCoreClock = HSE_VALUE * pllmull / plldiv;
+                SystemCoreClock = HSE_VALUE * pllmul / plldiv;
             else
-                SystemCoreClock = HSI_VALUE * pllmull / plldiv;
+                SystemCoreClock = HSI_VALUE * pllmul / plldiv;
 
     }
 
@@ -324,6 +332,20 @@ int SetSysClockSource( int src)
 {
     int rc = -1;
 
+    /* Enable 64-bit access, Prefetch and 1 wait state */
+    FLASH->ACR |= (FLASH_ACR_ACC64 | FLASH_ACR_PRFTEN | FLASH_ACR_LATENCY);
+
+    /* Power enable */
+    RCC->APB1ENR |= RCC_APB1ENR_PWREN;
+
+    /* Select the Voltage Range 1 (1.8 V) */
+    PWR->CR = PWR_CR_VOS_0;
+
+    /* Wait Until the Voltage Regulator is ready */
+    while((PWR->CSR & PWR_CSR_VOSF) != RESET)
+    {
+    }
+
     /* Fixme: Set MSI source with MSI frequency parameter */
     if (src == SYSCLK_MSI) {
         rc = CtlMsiClock(MSI_VALUE);
@@ -373,6 +395,10 @@ int SetSysClockSource( int src)
     /* Update core clock information */
     SystemCoreClockUpdate();
 
+    if (SystemCoreClock <= 16000000) {
+    	/* Switch to 0 wait state */
+        FLASH->ACR &= ~FLASH_ACR_LATENCY;
+    }
     return rc;
 }
 

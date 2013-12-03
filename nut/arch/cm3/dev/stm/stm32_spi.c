@@ -106,64 +106,64 @@ static int Stm32SpiBusDeselect(NUTSPINODE * node)
  */
 static int Stm32SpiBusSelect(NUTSPINODE * node, uint32_t tmo)
 {
-    int rc;
-    SPI_TypeDef* base;
+	int rc;
+	SPI_TypeDef* base;
 
-    /* Sanity check. */
-    NUTASSERT(node != NULL);
-    NUTASSERT(node->node_bus != NULL);
-    NUTASSERT(node->node_stat != NULL);
+	/* Sanity check. */
+	NUTASSERT(node != NULL);
+	NUTASSERT(node->node_bus != NULL);
+	NUTASSERT(node->node_stat != NULL);
 
-    base=(SPI_TypeDef*)(node->node_bus->bus_base);
+	base=(SPI_TypeDef*)(node->node_bus->bus_base);
 
-    /* Allocate the bus. */
-    rc = NutEventWait(&node->node_bus->bus_mutex, tmo);
-    if (rc) {
-        errno = EIO;
-    } else {
-        SPI_TypeDef *spireg = node->node_stat;
+	/* Allocate the bus. */
+	rc = NutEventWait(&node->node_bus->bus_mutex, tmo);
+	if (rc) {
+		errno = EIO;
+	} else {
+		SPI_TypeDef *spireg = node->node_stat;
 
-        SPI_ENABLE_CLK;
-        /* Activate the IO Pins to avoid glitches*/
-    GpioPinConfigSet(SPIBUS_SCK_PORT,  SPIBUS_SCK_PIN,  GPIO_CFG_DISABLED);//SCK
-    GpioPinConfigSet(SPIBUS_MISO_PORT, SPIBUS_MISO_PIN, GPIO_CFG_DISABLED );//MISO
-    GpioPinConfigSet(SPIBUS_MOSI_PORT, SPIBUS_MOSI_PIN, GPIO_CFG_DISABLED);//MOSI
+		SPI_ENABLE_CLK;
+		/* Activate the IO Pins to avoid glitches*/
+		GpioPinConfigSet(SPIBUS_SCK_PORT,  SPIBUS_SCK_PIN,  GPIO_CFG_DISABLED);//SCK
+		GpioPinConfigSet(SPIBUS_MISO_PORT, SPIBUS_MISO_PIN, GPIO_CFG_DISABLED );//MISO
+		GpioPinConfigSet(SPIBUS_MOSI_PORT, SPIBUS_MOSI_PIN, GPIO_CFG_DISABLED);//MOSI
 
-        /* If the mode update bit is set, then update our shadow registers. */
-        if (node->node_mode & SPI_MODE_UPDATE) {
-            Stm32SpiSetup(node);
-        }
+		/* If the mode update bit is set, then update our shadow registers. */
+		if (node->node_mode & SPI_MODE_UPDATE) {
+			Stm32SpiSetup(node);
+		}
 
-        /* Set SPI mode. */
-        base->CR1 = spireg->CR1;
-        base->CR1 |= SPI_CR1_SSI|SPI_CR1_MSTR;
-        base->CR2=spireg->CR2;
+		/* Set SPI mode. */
+		base->CR1 = spireg->CR1;
+		base->CR1 |= SPI_CR1_SSI|SPI_CR1_MSTR;
+		base->CR2=spireg->CR2;
 #if !defined(STM32L1XX_MD)
-        base->I2SCFGR=spireg->I2SCFGR;
-        base->I2SPR=spireg->I2SPR;
+		base->I2SCFGR=spireg->I2SCFGR;
+		base->I2SPR=spireg->I2SPR;
 #endif
-        //No enable - set it only during transfer
+		//No enable - set it only during transfer
 
 #if defined(STM32F10X_CL)
- #if defined(SPIBUS_REMAP_BB)
-        SPIBUS_REMAP_BB = SPI_DOREMAP;
- #endif
-#elif defined (MCU_STM32L1) || defined (MCU_STM32F2) || defined (MCU_STM32F4)
-    GPIO_PinAFConfig((GPIO_TypeDef*)SPIBUS_SCK_PORT,  SPIBUS_SCK_PIN,  SPI_GPIO_AF);
-    GPIO_PinAFConfig((GPIO_TypeDef*)SPIBUS_MISO_PORT, SPIBUS_MISO_PIN, SPI_GPIO_AF);
-    GPIO_PinAFConfig((GPIO_TypeDef*)SPIBUS_MOSI_PORT, SPIBUS_MOSI_PIN, SPI_GPIO_AF);
+#if defined(SPIBUS_REMAP_BB)
+		SPIBUS_REMAP_BB = SPI_DOREMAP;
 #endif
-    GpioPinConfigSet(SPIBUS_SCK_PORT,  SPIBUS_SCK_PIN,  GPIO_CFG_OUTPUT|GPIO_CFG_PERIPHAL);//SCK
-    GpioPinConfigSet(SPIBUS_MISO_PORT, SPIBUS_MISO_PIN,                 GPIO_CFG_PERIPHAL);//MISO
-    GpioPinConfigSet(SPIBUS_MOSI_PORT, SPIBUS_MOSI_PIN, GPIO_CFG_OUTPUT|GPIO_CFG_PERIPHAL);//MOSI
-        /* Finally activate the node's chip select. */
-        rc = Stm32SpiChipSelect(node->node_cs, (node->node_mode & SPI_MODE_CSHIGH) != 0);
-        if (rc) {
-            /* Release the bus in case of an error. */
-            NutEventPost(&node->node_bus->bus_mutex);
-        }
-    }
-    return rc;
+#elif defined (MCU_STM32L1) || defined (MCU_STM32F2) || defined (MCU_STM32F4)
+		GPIO_PinAFConfig( SPIBUS_SCK_PORT,  SPIBUS_SCK_PIN,  SPI_GPIO_AF);
+		GPIO_PinAFConfig( SPIBUS_MISO_PORT, SPIBUS_MISO_PIN, SPI_GPIO_AF);
+		GPIO_PinAFConfig( SPIBUS_MOSI_PORT, SPIBUS_MOSI_PIN, SPI_GPIO_AF);
+#endif
+		GpioPinConfigSet(SPIBUS_SCK_PORT,  SPIBUS_SCK_PIN,  GPIO_CFG_OUTPUT|GPIO_CFG_PERIPHAL);//SCK
+		GpioPinConfigSet(SPIBUS_MISO_PORT, SPIBUS_MISO_PIN,                 GPIO_CFG_PERIPHAL);//MISO
+		GpioPinConfigSet(SPIBUS_MOSI_PORT, SPIBUS_MOSI_PIN, GPIO_CFG_OUTPUT|GPIO_CFG_PERIPHAL);//MOSI
+		/* Finally activate the node's chip select. */
+		rc = Stm32SpiChipSelect(node->node_cs, (node->node_mode & SPI_MODE_CSHIGH) != 0);
+		if (rc) {
+			/* Release the bus in case of an error. */
+			NutEventPost(&node->node_bus->bus_mutex);
+		}
+	}
+	return rc;
 }
 
 

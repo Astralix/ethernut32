@@ -91,7 +91,7 @@ int Stm32McoSetup( uint8_t cs, uint8_t cdiv)
     GpioPinConfigSet( MCO_PORT, MCO_PIN,
                     GPIO_CFG_OUTPUT | GPIO_CFG_PERIPHAL 
                     | GPIO_CFG_SPEED_FAST);
-    GPIO_PinAFConfig((GPIO_TypeDef*)MCO_PORT, MCO_PIN, GPIO_AF_MCO);
+    GPIO_PinAFConfig( MCO_PORT, MCO_PIN, GPIO_AF_MCO);
 
     /* assemble bits */
     mcoset = (((uint32_t)(cs|cdiv))<<24);

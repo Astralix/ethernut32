@@ -41,7 +41,8 @@
 #include <cfg/arch.h>
 #if defined(MCU_STM32F1)
 #include <arch/cm3/stm/vendor/stm32f10x.h>
-#elif defined(MCU_STM32L1) || defined(MCU_STM32L10X) || defined(MCU_STM32VL10X) || defined(MCU_STM32L15X)
+#elif defined(MCU_STM32L1)
+#define MCU_STM32L1XX
 #include <arch/cm3/stm/vendor/stm32l1xx.h>
 #elif defined(MCU_STM32F2)
 #include <arch/cm3/stm/vendor/stm32f2xx.h>

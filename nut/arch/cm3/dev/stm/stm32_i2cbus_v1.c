@@ -263,8 +263,8 @@ static int checkpin_and_config(STM32_I2CCB *icb)
         GpioPinConfigSet(
             scl_port ,icb->scl_pin, GPIO_CFG_OUTPUT| GPIO_CFG_PERIPHAL|
             GPIO_CFG_MULTIDRIVE| GPIO_CFG_PULLUP | GPIO_CFG_SPEED_FAST);
-        GPIO_PinAFConfig((GPIO_TypeDef*) sda_port, icb->sda_pin, GPIO_AF_I2C1);
-        GPIO_PinAFConfig((GPIO_TypeDef*) scl_port, icb->scl_pin, GPIO_AF_I2C1);
+        GPIO_PinAFConfig( sda_port, icb->sda_pin, GPIO_AF_I2C1);
+        GPIO_PinAFConfig( scl_port, icb->scl_pin, GPIO_AF_I2C1);
 #else
         if ((icb->sda_pin == 7) && (icb->scl_pin == 6))
             AFIO->MAPR &= ~AFIO_MAPR_I2C1_REMAP;

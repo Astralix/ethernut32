@@ -39,16 +39,20 @@ include $(top_srcdir)/Makerules.all
 CPPFLAGS += -MD -MP
 
 %.o : %.c
-	$(CC) -c $(CPPFLAGS) $(CFLAGS) -o $@ $<
+	@echo "[CC] $<"
+	@$(CC) -c $(CPPFLAGS) $(CFLAGS) -o $@ $<
 
 %.o : %.cc
-	$(CXX) -c $(CPPFLAGS) $(CXXFLAGS) -o $@ $<
+	@echo "[CXX] $<"
+	@$(CXX) -c $(CPPFLAGS) $(CXXFLAGS) -o $@ $<
 
 %.o : %.S
-	$(AS) -c $(CPPFLAGS) $(ASFLAGS) -o $@ $<
+	@echo "[AS] $<"
+	@$(AS) -c $(CPPFLAGS) $(ASFLAGS) -o $@ $<
 
 %.a: $(OBJS)
-	$(AR) $(ARFLAGS) $@ $?
+	@echo "[AR] $?"
+	@$(AR) $(ARFLAGS) $@ $?
 
 # No idea why the pattern rule above doesn't work on some
 # make versions (No rule to make...). 
@@ -56,8 +60,9 @@ CPPFLAGS += -MD -MP
 $(PROJ).a: $(OBJS)
 
 cleancc:
-	-rm -f $(OBJS) $(SRCS:%.c=%.d) $(OBJ1:.o=.d)
-	-rm -f $(OBJS:.o=.lst) $(OBJ1:.o=.lst) $(OBJ2:.o=.lst) $(OBJ3:.o=.lst) $(OBJ4:.o=.lst) $(OBJ5:.o=.lst)
+	@echo "[RM] ..."
+	@-rm -f $(OBJS) $(SRCS:%.c=%.d) $(OBJ1:.o=.d)
+	@-rm -f $(OBJS:.o=.lst) $(OBJ1:.o=.lst) $(OBJ2:.o=.lst) $(OBJ3:.o=.lst) $(OBJ4:.o=.lst) $(OBJ5:.o=.lst)
 
 ifndef NODEPS
 # http://www.microhowto.info/howto/automatically_generate_makefile_dependencies.html

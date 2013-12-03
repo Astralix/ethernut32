@@ -115,6 +115,14 @@ typedef uint_fast16_t nutgpio_pin_t;
 #define GPIO_CFG_DEBOUNCE   0x00000000
 
 /*!
+ * \brief GPIO set to analog input function.
+ *
+ * STM32F specific:
+ * Connects pin to analog component of chip.
+ */
+#define GPIO_CFG_ANALOGIN   0x00000010
+
+/*!
  * \brief GPIO set to alternate function.
  *
  * STM32F specific:
@@ -173,9 +181,17 @@ extern GPIO_SIGNAL sig_GPIO2;
 extern GPIO_SIGNAL sig_GPIO3;
 #endif
 
+#if defined(MCU_STM32L1)
+extern uint32_t GpioPinConfigGet(int bank, int bit);
+extern int GpioPortConfigSet( int bank, uint32_t mask, uint32_t flags);
+//#define GpioPinConfigSet( bank, bit, flags) GpioPortConfigSet( bank, _BV(bit), flags)
+extern int GpioPinConfigSet( int bank, int bit, uint32_t flags);
+
+#else
 extern uint32_t GpioPinConfigGet(int bank, int bit);
 extern int GpioPinConfigSet(int bank, int bit, uint32_t flags);
 extern int GpioPortConfigSet(int bank, uint32_t mask, uint32_t flags);
+#endif
 
 #if defined(MCU_STM32F3)
 /* GPIO on AHB2 is outside of bitband region */

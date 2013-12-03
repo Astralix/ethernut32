@@ -38,13 +38,17 @@
 include $(top_srcdir)/app/Makerules.all
 
 %.elf: $(OBJS)
-	$(CC) $(OBJS) $(LDFLAGS) -Wl,--start-group $(LIBS) $(ADDLIBS) -Wl,--end-group -o $@
+	@echo "[LD] $@"
+	@$(CC) $(OBJS) $(LDFLAGS) -Wl,--start-group $(LIBS) $(ADDLIBS) -Wl,--end-group -o $@
 
 %.hex: %.elf
-	$(BIN) $(BINFLAGS) -O ihex $< $@
+	@echo "[HEX] $@"
+	@$(BIN) $(BINFLAGS) -O ihex $< $@
 
 %.rom: %.elf
-	$(BIN) $(BINFLAGS) -O srec $< $@
+	@echo "[ROM] $@"
+	@$(BIN) $(BINFLAGS) -O srec $< $@
 
 %.bin: %.elf
-	$(BIN) $(BINFLAGS) -O binary $< $@
+	@echo "[BIN] $@"
+	@$(BIN) $(BINFLAGS) -O binary $< $@

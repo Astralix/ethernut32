@@ -1,10 +1,10 @@
-# Do not edit! Automatically generated on Thu Nov 28 00:17:48 2013
+# Do not edit! Automatically generated on Thu Nov 28 17:43:49 2013
 
-top_srcdir = ../../nut
-top_blddir = ../../nutbld-l152-gcc
-top_appdir = ../../nutapp-l152-gcc
+top_srcdir = /media/DATA/Projects/ethernut/ethernut-code/nut
+top_blddir = /media/DATA/Projects/ethernut/ethernut-code/nutbld-l152-gcc
+top_appdir = /media/DATA/Projects/ethernut/ethernut-code/nutapp-l152-gcc
 
-LIBDIR = ../../nutbld-l152-gcc/lib
+LIBDIR = /media/DATA/Projects/ethernut/ethernut-code/nutbld-l152-gcc/lib
 INCFIRST=$(INCPRE)$(top_blddir)/include 
 include $(top_appdir)/NutConf.mk
 include $(top_srcdir)/app/Makedefs.cm3-gcc

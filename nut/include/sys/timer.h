@@ -169,13 +169,13 @@ extern volatile struct timeval system_time;
 #endif
 
 #ifndef NUT_HWCLK_MAX
-#if defined(MCU_STM32F10X)
-#define NUT_HWCLK_MAX           NUT_HWCLK_PCLK2
-#elif defined(MCU_STM32L1XX)
-#define NUT_HWCLK_MAX           NUT_HWCLOCK_ADC
-#else
-#define NUT_HWCLK_MAX           NUT_HWCLK_PERIPHERAL
-#endif
+  #if defined(MCU_STM32F10X)
+    #define NUT_HWCLK_MAX           NUT_HWCLK_PCLK2
+  #elif defined(MCU_STM32L1XX)
+    #define NUT_HWCLK_MAX           NUT_HWCLOCK_ADC
+  #else
+    #define NUT_HWCLK_MAX           NUT_HWCLK_PERIPHERAL
+  #endif
 #endif
 
 /*
