@@ -32,106 +32,10 @@
 
 -- Tools
 --
--- $Log$
--- Revision 1.30  2010/12/15 18:41:29  ve2yag
--- Added bootloader support script for AT91SAM7S family.
---
--- Revision 1.29  2009/03/07 00:04:29  olereinhardt
--- Added at91_bootloader_bootcrom ldscript
---
--- Revision 1.28  2008/09/23 07:33:53  haraldkipp
--- Added support for remaining SAM7 familiy members.
---
--- Revision 1.27  2008/09/18 09:48:06  haraldkipp
--- The old Marv_XXX do no longer work with ICCAVR 7.18B.
---
--- Revision 1.26  2008/08/11 11:51:20  thiagocorrea
--- Preliminary Atmega2560 compile options, but not yet supported.
--- It builds, but doesn't seam to run properly at this time.
---
--- Revision 1.25  2008/08/06 12:51:07  haraldkipp
--- Added support for Ethernut 5 (AT91SAM9XE reference design).
---
--- Revision 1.24  2008/07/14 13:04:28  haraldkipp
--- New Ethernut 3 link option with code in RAM and constant data in ROM.
---
--- Revision 1.23  2008/07/09 09:15:56  haraldkipp
--- EIR code running in RAM, contributed by Michael Fischer.
---
--- Revision 1.22  2008/06/28 07:49:33  haraldkipp
--- Added floating point support for stdio running on ARM.
---
--- Revision 1.21  2008/04/01 10:12:33  haraldkipp
--- Beautified target list.
---
--- Revision 1.20  2008/02/15 17:04:48  haraldkipp
--- Spport for AT91SAM7SE512 added.
---
--- Revision 1.19  2008/01/31 09:14:09  haraldkipp
--- Added ability to upload AT91 flash image via HTTP. Many thanks to
--- Matthias Wilde.
---
--- Revision 1.18  2007/10/04 20:15:26  olereinhardt
--- Support for SAM7S256 added
---
--- Revision 1.17  2007/09/11 13:39:45  haraldkipp
--- Configurable startup file for ICCAVR.
---
--- Revision 1.16  2007/04/12 09:20:00  haraldkipp
--- ATmega2561 no longer bound to ICCAVR.
---
--- Revision 1.15  2006/10/05 17:14:45  haraldkipp
--- Added exclusivity attribute.
---
--- Revision 1.14  2006/09/05 12:31:34  haraldkipp
--- Added missing linker script for SAM9260 applications running in external
--- RAM.
---
--- Revision 1.13  2006/08/01 07:34:16  haraldkipp
--- New linker script and new startup file support applications running in
--- flash memory.
---
--- Revision 1.12  2006/07/10 14:27:31  haraldkipp
--- Added ARM C++ support.
---
--- Revision 1.11  2006/07/10 08:48:03  haraldkipp
--- Distinguish between enhanced and extended AVR.
---
--- Revision 1.10  2006/03/02 19:54:48  haraldkipp
--- First attempt to compile with ICCARM. All compile errors fixed, but not
--- a finished port yet. Many things are missing.
---
--- Revision 1.9  2006/02/08 15:20:21  haraldkipp
--- ATmega2561 Support
---
--- Revision 1.8  2005/10/24 10:06:21  haraldkipp
--- New linker scripts added for AT91 apps running in RAM and ROM.
---
--- Revision 1.7  2005/06/05 16:57:00  haraldkipp
--- ICC target corrected
---
--- Revision 1.6  2005/04/05 18:04:17  haraldkipp
--- Support for ARM7 Wolf Board added.
---
--- Revision 1.5  2005/01/22 19:19:31  haraldkipp
--- Added C++ support contributed by Oliver Schulz (MPI).
---
--- Revision 1.4  2004/10/03 18:37:39  haraldkipp
--- GBA support
---
--- Revision 1.3  2004/09/07 19:12:57  haraldkipp
--- Linker script support added
---
--- Revision 1.2  2004/08/18 16:05:13  haraldkipp
--- Use consistent directory structure
---
--- Revision 1.1  2004/08/18 14:02:00  haraldkipp
--- First check-in
---
 --
 --
 
-toolchain_names = {"ARM_GCC", "ARM_GCC_NOLIBC", "AVR_GCC", "AVR32_GCC", "CM3_GCC", "CM3_GCC_NOLIBC", "LINUX_GCC", "ICCAVR", "ICCARM", "M68K_GCC_CS"}
+toolchain_names = {"ARM_GCC", "ARM_GCC_NOLIBC", "CM3_GCC", "CM3_GCC_NOLIBC" }
 gcc_output_format = {"ARMELF", "ARMEABI"}
 nuttools =
 {
@@ -178,17 +82,6 @@ nuttools =
             makedefs = { "ADDLIBS = -lnutc" }
         },
         {
-            brief = "GCC for AVR",
-            description = "GNU Compiler Collection for ARM including avr-libc.",
-            --  "TOOL_CXX" disabled due to problems with avr-libc eeprom.h.
-            provides = { "TOOL_CC_AVR", "TOOL_GCC" },
-            macro = "AVR_GCC",
-            flavor = "boolean",
-            exclusivity = toolchain_names,
-            file = "include/cfg/arch.h",
-            makedefs = { "MCU_ATMEGA2560=atmega2560", "MCU_ATMEGA2561=atmega2561", "MCU_ATMEGA128=atmega128", "MCU_ATMEGA103=atmega103", "MCU_ATMEGA644=atmega644" }
-        },
-        {
             brief = "GCC for AVR32",
             description = "GNU Compiler Collection for AVR32 including libc.",
             provides = { "TOOL_CC_AVR32", "TOOL_GCC", "TOOL_CXX" },
@@ -197,46 +90,6 @@ nuttools =
             exclusivity = toolchain_names,
             file = "include/cfg/arch.h",
         },
-        {
-            brief = "GCC for Linux",
-            description = "Linux emulation.",
-            provides = { "TOOL_CC_LINUX", "TOOL_GCC" },
-            macro = "LINUX_GCC",
-            flavor = "boolean",
-            exclusivity = toolchain_names,
-            file = "include/cfg/arch.h"
-        },
-        {
-            brief = "ImageCraft for AVR",
-            description = "www.imagecraft.com",
-            provides = { "TOOL_CC_AVR", "TOOL_ICC" },
-            macro = "ICCAVR",
-            flavor = "boolean",
-            exclusivity = toolchain_names,
-            file = "include/cfg/arch.h",
-            makedefs = { "MCU_ATMEGA2560=Extended", "MCU_ATMEGA2561=Extended", "MCU_ATMEGA128=Enhanced", "MCU_ATMEGA103=LongJump" }
-        },
-        {
-            brief = "ImageCraft for ARM",
-            description = "Not yet supported",
-            provides = { "TOOL_CC_ARM", "TOOL_ICC" },
-            macro = "ICCARM",
-            flavor = "boolean",
-            exclusivity = toolchain_names,
-            file = "include/cfg/arch.h",
-        },
-        {
-            brief = "Sourcery G++ for Coldfire ELF (nolibc)",
-            description = "GNU Compiler Collection with Run-Time Libraries from CodeSourcery http://www.mentor.com/embedded-software/codesourcery/\n"..
-                          "Sourcery's Run-Time Libraries are not used.\n"..
-                          "Nut/OS provides all required C standard functions.",
-            provides = { "TOOL_CC_M68K", "TOOL_GCC", "TOOL_NOLIBC" },
-            macro = "M68K_GCC_CS",
-            flavor = "boolean",
-            exclusivity = toolchain_names,
-            file = "include/cfg/arch.h",
-            makedefs = { "ADDLIBS = -lnutc" }
-        }
     },
     {
         name = "nuttools_gccopt",
@@ -284,35 +137,7 @@ nuttools =
                 makedefs = { "TRGT = arm-none-eabi-" }
             }
         }
-    },
-    {
-        name = "nuttools_iccopt",
-        brief = "ImageCraft AVR Settings",
-        requires = { "TOOL_CC_AVR", "TOOL_ICC" },
-        options =
-        {
-            {
-                macro = "ICCAVR_STARTUP",
-                brief = "Startup File",
-                description = "Select one of the following:\n\n"..
-                              "crtnut, if globals and static variables use less than 4kB.\n"..
-                              "crtenut, same as above but including EEPROM emulation.\n"..
-                              "crtnutram, if globals and static variables use more than 4kB.\n"..
-                              "crtenutram, same as above but including EEPROM emulation.\n"..
-                              "crtnutm256, for the ATmega2560 and ATmega2561.\n\n"..
-                              "Ethernut 1 up to 1.3 Rev-F and all Ethernut 2 boards as well as most "..
-                              "compatible boards require crtnutram.\n\n"..
-                              "Ethernut 1.3 Rev-G and Rev-H boards need crtenutram. This startup "..
-                              "should also work for all other boards with ATmega103/128 CPUs, but "..
-                              "requires slightly more code than crtnutram.\n\n"..
-                              "Use crtnutm256 for Ethernut and compatible boards with ATmega256 CPU.\n",
-                type = "enumerated",
-                choices = iccavr_startup_choice,
-                makedefs = { "CRTNAME" }
-            }
-        }
     }
-
     --
     -- Intentionally no programmer or urom creator specified.
     -- This will be part of the application wizard.
@@ -584,28 +409,6 @@ lpc17xx_ld_choice =
     "lpc1778_flash",
 }
 
-mcf51cn_ld_description = {
-        mcf51cn_512_rom                    = "MCF51cn, code running in FLASH",
-}
-
-mcf51cn_ld_choice = {
-        " ",
-        "mcf51cn_128_rom",
-}
-
-mcf5225x_ld_description = {
-        mcf5225x_512_rom                    = "MCF5225x, code running in FLASH",
-        mcf5225x_512_rom_512_extram         = "MCF5225x, code running in FLASH, data in external SDRAM",
-        mcf5225x_512_rom_512_extram_boot    = "MCF5225x, code running in FLASH, data in external SDRAM, started by bootloader at address 0x4000, vectors in external SDRAM"
-}
-
-mcf5225x_ld_choice = {
-        " ",
-        "mcf5225x_512_rom",
-        "mcf5225x_512_rom_512_extram",
-        "mcf5225x_512_rom_512_extram_boot"
-}
-
 --
 -- Retrieve platform specific ldscript path.
 --
@@ -622,12 +425,6 @@ function GetLDScriptsPath()
     if c_is_provided("TOOL_CC_CM3") then
         return basepath .. "cm3/ldscripts"
     end
-    if c_is_provided("TOOL_CC_M68K") then
-        if c_is_provided("HW_MCU_COLDFIRE") then
-              return basepath .. "m68k/coldfire/ldscripts"
-        end
-    end
-
     return "Unknown Platform - Check GetLDScriptsPath in tools.nut"
 end
 
@@ -682,14 +479,6 @@ function GetLDScripts()
             return lpc17xx_ld_choice
         end
     end
-	if c_is_provided("TOOL_CC_M68K") then
-        if c_is_provided("HW_MCU_MCF5225X") then
-            return mcf5225x_ld_choice
-        end
-        if c_is_provided("HW_MCU_MCF51CN") then
-            return mcf51cn_ld_choice
-        end
-	end
 end
 
 --
