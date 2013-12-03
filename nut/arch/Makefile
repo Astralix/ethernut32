@@ -47,38 +47,6 @@ include $(top_blddir)/NutConf.mk
 SRCS =
 
 #
-# AVR Controllers
-#
-
-ifeq ($(ARCH), avr)
-SRCS = avr/os/context_gcc.c avr/dev/ostimer.c avr/dev/ih_adc.c \
-	avr/dev/ih_analog_comp.c avr/dev/ih_canit.c avr/dev/ih_ee_ready.c avr/dev/ih_int0.c \
-	avr/dev/ih_int1.c avr/dev/ih_int2.c avr/dev/ih_int3.c avr/dev/ih_int4.c \
-	avr/dev/ih_int5.c avr/dev/ih_int6.c avr/dev/ih_int7.c avr/dev/ih_ovrit.c \
-	avr/dev/ih_spi_stc.c avr/dev/ih_spm_ready.c avr/dev/ih_timer0_comp.c \
-	avr/dev/ih_timer0_ovf.c avr/dev/ih_timer1_capt.c avr/dev/ih_timer1_compa.c \
-	avr/dev/ih_timer1_compb.c avr/dev/ih_timer1_compc.c avr/dev/ih_timer1_ovf.c \
-	avr/dev/ih_timer2_comp.c avr/dev/ih_timer2_ovf.c avr/dev/ih_timer3_capt.c \
-	avr/dev/ih_timer3_compa.c avr/dev/ih_timer3_compb.c avr/dev/ih_timer3_compc.c \
-	avr/dev/ih_timer3_ovf.c avr/dev/ih_twi.c avr/dev/ih_usart0_rx.c avr/dev/ih_usart0_tx.c \
-	avr/dev/ih_usart0_udre.c avr/dev/ih_usart1_rx.c avr/dev/ih_usart1_tx.c \
-	avr/dev/ih_usart1_udre.c avr/dev/ahdlc0.c \
-	avr/dev/ahdlc1.c avr/dev/ahdlcavr.c avr/dev/debug0.c avr/dev/debug1.c \
-	avr/dev/usart0avr.c avr/dev/usart1avr.c avr/dev/uart0.c avr/dev/uart1.c \
-	avr/dev/uartavr.c avr/dev/lanc111.c avr/dev/nicrtl.c avr/dev/eth0rtl.c avr/dev/ide.c \
-	avr/dev/cs8900.c avr/dev/eth0cs.c avr/dev/wlan.c avr/dev/adc.c \
-	avr/dev/ir.c avr/dev/irsony.c avr/dev/hd44780.c avr/dev/hd44780_bus.c \
-	avr/dev/sja1000.c avr/dev/spidigio.c avr/dev/twif.c avr/dev/vs1001k.c \
-	avr/dev/pcmcia.c avr/dev/irqstack.c avr/dev/eeprom.c avr/dev/ace.c \
-	avr/dev/gpio_avr.c avr/dev/sppif0.c avr/dev/wdt_avr.c avr/dev/tlc16c550.c
-
-ifeq ($(MCU), at90can128)
-SRCS += avr/dev/atcan.c
-endif
-
-endif
-
-#
 # ARM7/9 Controllers
 #
 
@@ -133,10 +101,6 @@ SRCS +=	 $(SRCSPATH)/ostimer_at91.c $(SRCSPATH)/ih_at91emac.c \
 	 $(SRCSPATH)/ih_at91pioa.c $(SRCSPATH)/ih_at91piob.c $(SRCSPATH)/ih_at91pioc.c $(SRCSPATH)/usartDat91.c
 endif
 
-ifeq ($(DEVICE), gba)
-SRCS += arm/dev/gba/ostimer_gba.c arm/dev/gba/ihndlr_gba.c arm/dev/gba/debug_gba.c
-endif
-
 OBJ1 = arm/init/crt$(LDNAME).o
 
 endif
@@ -158,14 +122,6 @@ endif
 
 ifeq ($(ARCH), avr32)
 SRCS = avr32/os/context.c avr32/os/nutinit.c
-endif
-
-#
-# Unix Emulation
-#
-
-ifeq ($(ARCH), unix)
-SRCS = unix/dev/ostimer.c unix/dev/unix_devs.c unix/os/thread.c
 endif
 
 #
