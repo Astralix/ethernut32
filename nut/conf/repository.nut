@@ -34,145 +34,9 @@
 -- The repository contains an enumerated list
 -- of all top-level components.
 --
--- $Log$
--- Revision 1.39  2009/03/06 23:54:31  olereinhardt
--- Added gorp library
---
--- Revision 1.38  2009/02/06 15:52:44  haraldkipp
--- Introduced target independent symbols for external interrutps.
---
--- Revision 1.37  2009/01/18 16:44:56  haraldkipp
--- Introduced target independent port numbers.
--- Distinguish between PIO IDs and port numbers.
---
--- Revision 1.36  2008/10/10 11:52:25  haraldkipp
--- Lua added.
---
--- Revision 1.35  2008/10/05 16:58:14  haraldkipp
--- Added new contrib directory for non-BSDL code.
---
--- Revision 1.34  2008/09/23 07:25:05  haraldkipp
--- Added support for remaining AT91SAM7 familiy members.
---
--- Revision 1.33  2008/08/28 11:08:20  haraldkipp
--- Added Lua routines which dynamically return GPIO ports and bits based on
--- the selected target platform.
---
--- Revision 1.32  2008/08/11 11:51:20  thiagocorrea
--- Preliminary Atmega2560 compile options, but not yet supported.
--- It builds, but doesn't seam to run properly at this time.
---
--- Revision 1.31  2008/08/06 12:51:07  haraldkipp
--- Added support for Ethernut 5 (AT91SAM9XE reference design).
---
--- Revision 1.30  2008/07/24 17:05:12  haraldkipp
--- Demonstrates some Configurator capabilities.
---
--- Revision 1.29  2008/07/14 13:04:28  haraldkipp
--- New Ethernut 3 link option with code in RAM and constant data in ROM.
---
--- Revision 1.28  2008/07/09 11:14:46  haraldkipp
--- Changelog corrected, again.
---
--- Revision 1.27  2008/04/01 10:12:08  haraldkipp
--- Added missing at91sam7s entries.
---
--- Revision 1.26  2008/02/15 17:05:52  haraldkipp
--- AT91SAM7SE512 support added. Global MCU list simplifies exclusivity
--- attribute. HW_EBI_AT91 added for MCUs with external bus interface.
---
--- Revision 1.25  2008/01/31 09:11:19  haraldkipp
--- Added ability to upload AT91 flash image via HTTP. Many thanks to
--- Matthias Wilde.
--- Added AVR ports H up to L.
---
--- Revision 1.24  2007/09/11 13:39:45  haraldkipp
--- Configurable startup file for ICCAVR.
---
--- Revision 1.23  2007/09/06 19:54:31  olereinhardt
--- Added ld script selection for eb40a_redboot_ram (EB40A Eval board with
--- redboot bootloader running, changed load address)
---
--- Revision 1.22  2007/04/12 09:09:27  haraldkipp
--- Allow to select empty entry for AT91 ports.
---
--- Revision 1.21  2007/02/15 16:19:44  haraldkipp
--- AT91 PIO IDs added.
---
--- Revision 1.20  2006/10/08 16:40:17  haraldkipp
--- Many thanks to Thiago Correa for adding LCD port configuration.
---
--- Revision 1.19  2006/10/05 17:14:03  haraldkipp
--- Added script, which extracts version information from C source file.
--- This demonstrates the new scripting capabilities of the Configurator.
---
--- Revision 1.18  2006/09/05 12:31:34  haraldkipp
--- Added missing linker script for SAM9260 applications running in external
--- RAM.
---
--- Revision 1.17  2006/08/01 07:34:16  haraldkipp
--- New linker script and new startup file support applications running in
--- flash memory.
---
--- Revision 1.16  2006/02/23 15:40:09  haraldkipp
--- Added choice for 32 bit ports.
---
--- Revision 1.15  2006/01/23 17:31:36  haraldkipp
--- Enhanced description of dev library.
---
--- Revision 1.14  2006/01/22 17:35:22  haraldkipp
--- Baudrate calculation for Ethernut 3 failed if MCU Clock was not specified.
---
--- Revision 1.13  2006/01/05 16:44:58  haraldkipp
--- PLL clock choices added.
---
--- Revision 1.12  2005/10/24 10:01:19  haraldkipp
--- New linker scripts added for AT91 apps running in RAM and ROM.
---
--- Revision 1.11  2005/10/07 22:10:29  hwmaier
--- Added support for PLATFORM macro
---
--- Revision 1.10  2005/07/26 16:14:21  haraldkipp
--- Better title for architecture.
---
--- Revision 1.9  2005/04/05 18:04:17  haraldkipp
--- Support for ARM7 Wolf Board added.
---
--- Revision 1.8  2005/01/22 19:18:37  haraldkipp
--- Changed AVR port configuration names from PORTx to AVRPORTx.
--- Added C++ support contributed by Oliver Schulz (MPI).
---
--- Revision 1.7  2004/11/24 14:47:24  haraldkipp
--- Empty items allow to disable choices
---
--- Revision 1.6  2004/10/03 18:37:39  haraldkipp
--- GBA support
---
--- Revision 1.5  2004/09/07 19:12:57  haraldkipp
--- Linker script support added
---
--- Revision 1.4  2004/09/01 14:09:49  haraldkipp
--- AVR interrupt selection simplified
---
--- Revision 1.3  2004/08/18 13:46:08  haraldkipp
--- Fine with avr-gcc
---
--- Revision 1.2  2004/08/03 15:09:30  haraldkipp
--- Another change of everything
---
--- Revision 1.1  2004/06/07 16:38:43  haraldkipp
--- First release
---
 --
 
 mcu_names = {
-    "MCU_ATMEGA103",
-    "MCU_ATMEGA644",
-    "MCU_ATMEGA128",
-    "MCU_AT90CAN128",
-    "MCU_AT90USB1287",
-    "MCU_ATMEGA2560",
-    "MCU_ATMEGA2561",
     "MCU_AT91SAM9260",
     "MCU_AT91SAM9G45",
     "MCU_AT91SAM9XE512",
@@ -189,10 +53,6 @@ mcu_names = {
     "MCU_AT91SAM7SE256",
     "MCU_AT91SAM7SE512",
     "MCU_AT91R40008",
-    "MCU_GBA",
-    "MCU_LINUX_EMU",
-    "MCU_H8_3068",
-    "MCU_S3C4510B",
     "MCU_AVR32UC3A0512ES",
     "MCU_AVR32UC3A0512",
     "MCU_AVR32UC3A3256",
@@ -227,27 +87,6 @@ mcu_names = {
     "MCU_MCF51CN128",
     "MCU_ZERO"
 }
-
-avr_bit_choice = { " ", "0", "1", "2", "3", "4", "5", "6", "7" }
-avr_port_choice =
-{
-    " ",
-    "AVRPORTA",
-    "AVRPORTB",
-    "AVRPORTC",
-    "AVRPORTD",
-    "AVRPORTE",
-    "AVRPORTF",
-    "AVRPORTG",
-    "AVRPORTH",
-    "AVRPORTI",
-    "AVRPORTJ",
-    "AVRPORTK",
-    "AVRPORTL"
-}
-avr_irq_choice = { " ", "INT0", "INT1", "INT2", "INT3", "INT4", "INT5", "INT6", "INT7" }
-
-iccavr_startup_choice = { "crtenutram", "crtenut", "crtnutram", "crtnut", "crtnutm256" }
 
 mcu_32bit_choice =
 {
@@ -630,9 +469,6 @@ end
 -- Retrieve platform specific GPIO banks.
 --
 function GetGpioBanks()
-    if c_is_provided("HW_MCU_AVR") then
-        return GetAvrPorts()
-    end
     if c_is_provided("HW_MCU_AT91") then
         if c_is_provided("HW_MCU_AT91R40008") then
             return { " " }
@@ -653,9 +489,6 @@ end
 -- Retrieve platform specific GPIO port IDs.
 --
 function GetGpioPortIds()
-    if c_is_provided("HW_MCU_AVR") then
-        return avr_port_choice
-    end
     if c_is_provided("HW_MCU_AT91") then
         return at91_pio_id_choice
     end
@@ -766,22 +599,6 @@ function GetColdfirePioIds()
 end
 
 --
--- Retrieve AVR Port IDs.
---
-function GetAvrPorts()
-    if c_is_provided("HW_MCU_ATMEGA103") then
-        return { " ", "AVRPORTA", "AVRPORTB", "AVRPORTC", "AVRPORTD", "AVRPORTE", "AVRPORTF" }
-    end
-    if c_is_provided("HW_MCU_ATMEGA128") then
-        return { " ", "AVRPORTA", "AVRPORTB", "AVRPORTC", "AVRPORTD", "AVRPORTE", "AVRPORTF", "AVRPORTG" }
-    end
-    if c_is_provided("HW_MCU_ATMEGA644") then
-        return { " ", "AVRPORTA", "AVRPORTB", "AVRPORTC", "AVRPORTD" }
-    end
-    return avr_port_choice
-end
-
---
 -- Retrieve IOExpander specific Ports bits.
 --
 function GetIoxpPorts()
@@ -805,9 +622,6 @@ end
 -- Retrieve platform specific GPIO bits.
 --
 function GetGpioBits()
-    if c_is_provided("HW_MCU_AVR") then
-        return avr_bit_choice
-    end
     if c_is_provided("HW_MCU_STM32") then
         return stm32_bit_choice
     end
@@ -825,9 +639,6 @@ function GetGpioHeaderPath()
     local basepath
 
     basepath = "include/cfg/arch/"
-    if c_is_provided("HW_MCU_AVR") then
-        return basepath .. "avrpio.h"
-    end
     if c_is_provided("HW_MCU_ARM") then
         return basepath .. "armpio.h"
     end

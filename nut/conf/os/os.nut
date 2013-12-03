@@ -32,86 +32,6 @@
 
 -- Operating system functions
 --
--- $Log$
--- Revision 1.22  2009/02/13 14:43:53  haraldkipp
--- Heap debug options and split memory flag added.
--- Banked memory options moved to the right module.
--- NUTPANIC added.
---
--- Revision 1.21  2009/02/06 15:52:14  haraldkipp
--- Removed stack size defaults.
---
--- Revision 1.20  2009/01/19 18:55:49  haraldkipp
--- Default fatal error handler added.
---
--- Revision 1.19  2009/01/16 17:03:02  haraldkipp
--- Configurable host name length. The *nix conditional is
--- no longer required as this will be handled in the nvmem
--- routines. NutLoadConfig will now set the virgin host
--- name, if no valid configuration is available. Cookie
--- and virgin host name are configurable too, but disabled
--- in the Configurator until we fixed the string value
--- problem. You may use UserConf.mk instead.
---
--- Revision 1.18  2008/07/08 08:25:04  haraldkipp
--- NutDelay is no more architecture specific.
--- Number of loops per millisecond is configurable or will be automatically
--- determined.
--- A new function NutMicroDelay provides shorter delays.
---
--- Revision 1.17  2008/07/07 11:04:27  haraldkipp
--- Configurable ways of handling critical sections for ARM targets.
---
--- Revision 1.16  2008/04/21 22:29:01  olereinhardt
--- Added configuration options for condition variables
---
--- Revision 1.15  2007/04/12 09:08:57  haraldkipp
--- Segmented buffer routines ported to ARM.
---
--- Revision 1.14  2006/02/08 15:20:22  haraldkipp
--- ATmega2561 Support
---
--- Revision 1.13  2006/01/23 17:31:07  haraldkipp
--- Dependency added to system configuration.
---
--- Revision 1.12  2005/10/24 09:58:21  haraldkipp
--- Generalized description for NUT_CPU_FREQ.
---
--- Revision 1.11  2005/10/04 05:44:29  hwmaier
--- Added support for separating stack and conventional heap as required by AT09CAN128 MCUs
---
--- Revision 1.10  2005/07/26 16:13:24  haraldkipp
--- Target dependent modules moved to arch.
---
--- Revision 1.9  2005/02/16 20:02:07  haraldkipp
--- Typo of NUTDEBUG corrected.
--- Philipp Blum's tracer added.
---
--- Revision 1.8  2004/11/24 14:48:34  haraldkipp
--- crt/crt.nut
---
--- Revision 1.7  2004/11/08 18:58:58  haraldkipp
--- Configurable stack sizes
---
--- Revision 1.6  2004/09/25 15:42:09  drsung
--- Removed configuration for separate interrupt stack,
--- it's now in conf/dev/dev.nut
---
--- Revision 1.5  2004/09/01 14:07:15  haraldkipp
--- Cleaned up memory configuration
---
--- Revision 1.4  2004/08/18 16:05:38  haraldkipp
--- Use consistent directory structure
---
--- Revision 1.3  2004/08/18 13:46:10  haraldkipp
--- Fine with avr-gcc
---
--- Revision 1.2  2004/08/03 15:09:31  haraldkipp
--- Another change of everything
---
--- Revision 1.1  2004/06/07 16:38:43  haraldkipp
--- First release
---
 --
 
 nutos =
@@ -244,7 +164,6 @@ nutos =
                               "The specified number of bytes may be used by a "..
                               "device driver when the external memory interface "..
                               " is disabled.",
-                requires = { "HW_MCU_AVR" },
                 flavor = "booldata",
                 file = "include/cfg/memory.h",
                 makedefs = { "NUTMEM_RESERVED" }
@@ -275,38 +194,6 @@ nutos =
                 flavor = "boolean",
                 file = "include/cfg/memory.h"
             },
-            {
-                macro = "NUTMEM_STACKHEAP",
-                brief = "Separate heap for stack",
-                description = "This option enables use of a separate heap for stack.\n\n"..
-                              "When a thread is created with this option enabled, it's stack is "..
-                              "allocated on a special \"thread stack heap\" which is kept in "..
-                              "internal memory before the data segments instead of using the \"standard "..
-                              "heap\" which is typically located in external memory after the data segments. \n"..
-                              "\n"..
-                              "Using this option is a must for silicon revisions C of the AT90CAN128 MCU \n"..
-                              "as the device misfunctions when code stack is in XRAM.  Refer to \n"..
-                              "AT90CAN128 Datasheet Rev. 4250F-CAN-04/05 - Errata Rev C \n"..
-                              "\n"..
-                              "Use this option is conjunction with DATA_SEG for AT90CAN128 MCUs!",
-                requires = { "HW_MCU_AVR" },
-                flavor = "booldata",
-                file = "include/cfg/memory.h"
-            },
-            {
-                macro = "DATA_SEG",
-                brief = "Start of data segment",
-                description = "This option relocates the data segment to a different address during the linking phase.\n\n"..
-                              "Leave this option empty to use the architecture's default setting.\n\n"..
-                              "Using this option is a must for silicon revisions C of the AT90CAN128 MCU \n"..
-                              "as the device misfunctions when code stack is in XRAM.  Refer to \n"..
-                              "AT90CAN128 Datasheet Rev. 4250F-CAN-04/05 - Errata Rev C \n"..
-                              "\n"..
-                              "Use this option is conjunction with NUTMEM_STACKHEAP for AT90CAN128 MCUs!",
-                requires = { "HW_MCU_AVR" },
-                flavor = "booldata",
-                makedefs = { "DATA_SEG" }
-            }
         }
     },
     {
@@ -318,43 +205,6 @@ nutos =
         -- requires = { "HW_MCU_AVR" },
         provides = { "NUT_SEGBUF" },
         sources = { "bankmem.c" },
-        options =
-        {
-            {
-                macro = "NUTBANK_COUNT",
-                brief = "Memory Banks",
-                description = "Number of memory banks.\n\n"..
-                              "Specially on 8-bit systems the address space is typically "..
-                              "very limited. To overcome this, some hardware implementations "..
-                              "like the Ethernut 2 reference design provide memory banking. "..
-                              "Right now this is supported for the AVR platform only.",
-                requires = { "HW_MCU_AVR" },
-                provides = { "NUTBANK_COUNT" },
-                flavor = "booldata",
-                file = "include/cfg/memory.h"
-            },
-            {
-                macro = "NUTBANK_START",
-                brief = "Banked Memory Start",
-                description = "First address of the banked memory area.",
-                requires = { "NUTBANK_COUNT" },
-                file = "include/cfg/memory.h"
-            },
-            {
-                macro = "NUTBANK_SIZE",
-                brief = "Banked Memory Size",
-                description = "Size of the banked memory area.",
-                requires = { "NUTBANK_COUNT" },
-                file = "include/cfg/memory.h"
-            },
-            {
-                macro = "NUTBANK_SR",
-                brief = "Bank Select Register",
-                description = "Address of the bank select register.",
-                requires = { "NUTBANK_COUNT" },
-                file = "include/cfg/memory.h"
-            }
-        }
     },
 
     --

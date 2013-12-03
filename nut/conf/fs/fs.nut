@@ -32,31 +32,6 @@
 
 -- Operating system functions
 --
--- $Log$
--- Revision 1.8  2009/01/09 17:54:42  haraldkipp
--- Added raw file system driver.
---
--- Revision 1.7  2006/08/01 07:42:56  haraldkipp
--- New functions extract last component and parent directory from pathnames.
---
--- Revision 1.6  2006/02/23 15:43:08  haraldkipp
--- PHAT file system now supports configurable number of sector buffers.
---
--- Revision 1.5  2006/01/05 16:49:48  haraldkipp
--- PHAT file system driver added.
---
--- Revision 1.4  2005/04/05 17:56:16  haraldkipp
--- UROM file system is not platform dependant.
---
--- Revision 1.3  2005/02/05 20:40:44  haraldkipp
--- Peanut added.
---
--- Revision 1.2  2004/08/18 13:46:09  haraldkipp
--- Fine with avr-gcc
---
--- Revision 1.1  2004/06/07 16:35:53  haraldkipp
--- First release
---
 --
 
 nutfs =
