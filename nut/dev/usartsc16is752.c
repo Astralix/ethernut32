@@ -1384,39 +1384,28 @@ static uint8_t switchTcrTlrSelect(uint8_t dev, uint8_t ch, uint8_t flag)
     return 0;
 }
 
+// TODO: Must be adapted to new NutTwi Interface
 
 static int Sc16is752RegRawWrite(uint8_t dev, uint8_t ch, uint8_t reg, uint8_t val)
 {
     uint8_t wbuf[2];
     wbuf[0] = REGADDR(reg & 0xf, ch);
     wbuf[1] = val;
-#if defined(__linux__)
-    printf("%s(%d,%d,0x%02x,0x%02x) => slave addr:0x%02x data 0x%02x\n",
+    MYPRINT("%s(%d,%d,0x%02x,0x%02x) => slave addr:0x%02x data 0x%02x\n",
          __func__, dev, ch, reg, val, i2caddr[dev], wbuf[0]);
-    return 0;
-#else
-     MYPRINT("%s(%d,%d,0x%02x,0x%02x) => slave addr:0x%02x data 0x%02x\n",
-         __func__, dev, ch, reg, val, i2caddr[dev], wbuf[0]);
-#endif
     return TwMasterTransact(i2caddr[dev], wbuf, 2, 0, 0, 0);
 }
 
 static int Sc16is752RegRawRead(uint8_t dev, uint8_t ch, uint8_t reg, uint8_t *val)
 {
     uint8_t wbuf, rc;
-
     wbuf = REGADDR(reg & 0xf, ch);
-#if defined(__linux__)
-    printf("%s(%d,%d,0x%02x) => slave addr:0x%02x data 0x%02x\n",
-         __func__, dev, ch, reg, i2caddr[dev], wbuf);
-    return 0;
-#else
-  //  return TwMasterTransact(i2caddr[dev], wbuf, 1, val, 1, 0);
+
+    //  return TwMasterTransact(i2caddr[dev], wbuf, 1, val, 1, 0);
      rc = TwMasterRegRead (i2caddr[dev], wbuf, 1, val, 1, 0);
      MYPRINT("%s(%d,%d,0x%02x,0x%02x) => slave addr:0x%02x data 0x%02x\n",
          __func__, dev, ch, reg, *val, i2caddr[dev], wbuf);
     return rc;
-#endif
 }
 
 

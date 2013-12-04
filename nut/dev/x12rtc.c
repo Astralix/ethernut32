@@ -34,47 +34,6 @@
 /*!
  * \file dev/x12rtc.c
  * \brief RTC and EEPROM routines for the Intersil X12xx clock chips.
- *
- * \verbatim
- *
- * $Log$
- * Revision 1.10  2009/02/13 14:52:05  haraldkipp
- * Include memdebug.h for heap management debugging support.
- *
- * Revision 1.9  2009/01/17 11:26:46  haraldkipp
- * Getting rid of two remaining BSD types in favor of stdint.
- * Replaced 'u_int' by 'unsinged int' and 'uptr_t' by 'uintptr_t'.
- *
- * Revision 1.8  2008/08/11 06:59:42  haraldkipp
- * BSD types replaced by stdint types (feature request #1282721).
- *
- * Revision 1.7  2008/07/09 14:25:06  haraldkipp
- * Made EEPROM_PAGE_SIZE configurable. Does it really make sense?
- *
- * Revision 1.6  2007/06/03 08:50:38  haraldkipp
- * Automatic detection of X1226 or X1286.
- * Fixed wrong century determination for X1226.
- * Debugging output added.
- *
- * Revision 1.5  2007/05/02 11:29:25  haraldkipp
- * Failed to store more than one EEPROM page. Removing NutSleep() from
- * X12WaitReady() fixes this. Why?
- *
- * Revision 1.4  2006/10/05 17:21:53  haraldkipp
- * Hardware specific functions marked deprecated.
- * Hardcoded register addresses and values replaced by macros.
- *
- * Revision 1.3  2006/03/02 19:57:34  haraldkipp
- * ICCARM insists on a (void *) typecast for the second parameter of memcpy().
- *
- * Revision 1.2  2006/01/19 18:41:34  haraldkipp
- * Year translation was completely broken. Fixed.
- *
- * Revision 1.1  2005/10/24 10:21:57  haraldkipp
- * Initial check in.
- *
- *
- * \endverbatim
  */
 
 #define NUT_DEPRECATED
@@ -184,6 +143,9 @@ int X12RtcReadRegs(uint8_t reg, uint8_t *buff, size_t cnt)
 
     wbuf[0] = 0;
     wbuf[1] = reg;
+
+    // TODO: Must be adapted to new NutTwi Interface
+
     if (TwMasterTransact(I2C_SLA_RTC, wbuf, 2, buff, cnt, NUT_WAIT_INFINITE) == cnt) {
 #ifdef X12DEBUG
         printf("[Rtc$%02x>", reg);
@@ -215,6 +177,9 @@ int X12RtcWrite(int nv, const uint8_t *buff, size_t cnt)
     int rc;
 
     if ((rc = X12WriteEnable(1)) == 0) {
+
+    	// TODO: Must be adapted to new NutTwi Interface
+
         rc = TwMasterTransact(I2C_SLA_RTC, buff, cnt, 0, 0, NUT_WAIT_INFINITE);
         if (rc == 0 && nv) {
             rc = X12WaitReady();
